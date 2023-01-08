@@ -5,3 +5,8 @@
 .tab_container {
     display: flex;
 }
+
+.cards_wrapper {
+    height: calc(100vh - 324px);
+    overflow: auto;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./BurgerConstructor.module.css";
 import BurgerConstructorItem from "./BurgerConstructorItem/BurgerConstructorItem";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import {mockedDataPropTypes} from "../../utils/types";
 
 const BurgerConstructor = ({ cards }) => {
     // Временно расссчитываем сумму из моковых данных
@@ -12,7 +12,13 @@ const BurgerConstructor = ({ cards }) => {
         <div className={styles.wrapper}>
             <div className="mt-25" />
             <div className={styles.items_container}>
-                {cards.map(item => <BurgerConstructorItem image_mobile={item.image_mobile} price={item.price} name={item.name} key={item._id}/>)}
+                {cards.map((item, index) => <BurgerConstructorItem
+                    image_mobile={item.image_mobile}
+                    price={item.price}
+                    name={item.name}
+                    key={item._id}
+                    isFirstOrLastItem={index === 0 || index === cards.length - 1}
+                />)}
             </div>
 
             <div className="pt-10" />
@@ -29,21 +35,6 @@ const BurgerConstructor = ({ cards }) => {
     );
 }
 
-BurgerConstructor.propTypes = {
-    cards: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        calories: PropTypes.number.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        __v: PropTypes.number,
-    }))
-}
+BurgerConstructor.propTypes = mockedDataPropTypes;
 
 export default BurgerConstructor;
