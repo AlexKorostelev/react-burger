@@ -1,0 +1,47 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+}
+
+.icon_wrapper {
+    width: 32px;
+}
+
+.item_container {
+    width: 536px;
+    height: 80px;
+    background-color: #1c1c21;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image {
+    width: 80px;
+    height: 40px;
+    margin-left: 24px;
+}
+
+.info_container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.cost_container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.delete_icon {
+    display: flex;
+    align-items: center;
+    margin: 0 32px 0 20px;
+}
+
+.item_name_container {
+    margin-right: 20px;
+}

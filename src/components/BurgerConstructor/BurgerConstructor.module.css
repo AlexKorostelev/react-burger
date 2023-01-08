@@ -1,0 +1,31 @@
+.wrapper {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.items_container {
+    height: calc(100vh - 422px);
+    overflow: auto;
+}
+
+/* полоса прокрутки (скроллбар) */
+::-webkit-scrollbar {
+    width: 8px; /* ширина для вертикального скролла */
+    background-color: #2f2f37;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color: #8585ad;
+}
+
+.total_container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.button_order {
+    margin-left: 40px;
+}

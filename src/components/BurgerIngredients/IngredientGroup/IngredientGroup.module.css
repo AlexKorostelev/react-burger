@@ -1,0 +1,19 @@
+.cards_container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 16px;
+    flex-wrap: wrap;
+    height: calc(100vh - 420px);
+    overflow: auto;
+}
+
+/* полоса прокрутки (скроллбар) */
+::-webkit-scrollbar {
+    width: 8px; /* ширина для вертикального скролла */
+    background-color: #2f2f37;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color: #8585ad;
+}
