@@ -3,23 +3,21 @@ import PropTypes from 'prop-types';
 import styles from './IngredientGroup.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
-const IngredientGroup = ({ groupName, cards }) => {
-    // Генерим рандомные данные для примера отображения блока
-    const cardsWithCount = cards.map((item, index) => ({...item, count: Math.floor(Math.random() * 3)}));
-
+const IngredientGroup = ({ groupName, cards, onClickCardIngredient }) => {
     return (
-        cardsWithCount.length > 0 &&
+        cards.length > 0 &&
         <>
             <p className="text text_type_main-medium mt-10 mb-6">
                 {groupName}
             </p>
             <div className={styles.cards_container}>
-                {cardsWithCount.map(item => <Ingredient
+                {cards.map((item, index) => <Ingredient
                     key={item._id}
                     image={item.image}
                     price={item.price}
                     name={item.name}
-                    count={item.count}
+                    count={Number(!index)}
+                    onClickCardIngredient={() => onClickCardIngredient(item._id)}
                     />
                 )}
             </div>
@@ -34,6 +32,7 @@ IngredientGroup.propTypes = {
         price: PropTypes.number.isRequired,
         image: PropTypes.string.isRequired,
         count: PropTypes.number,
+        onClickCardIngredient: PropTypes.func
     })),
     groupName: PropTypes.string.isRequired
 }

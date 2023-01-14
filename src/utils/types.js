@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export const mockedDataPropTypes = {
+export const ingredientsPropTypes = {
     cards: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
@@ -13,6 +13,6 @@ export const mockedDataPropTypes = {
         image: PropTypes.string.isRequired,
         image_mobile: PropTypes.string.isRequired,
         image_large: PropTypes.string.isRequired,
-        __v: PropTypes.number,
+        __v: PropTypes.number
     }))
 }
