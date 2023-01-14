@@ -2,9 +2,10 @@ import React from 'react';
 import styles from "./BurgerConstructor.module.css";
 import BurgerConstructorItem from "./BurgerConstructorItem/BurgerConstructorItem";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {mockedDataPropTypes} from "../../utils/types";
+import {ingredientsPropTypes} from "../../utils/types";
+import PropTypes from "prop-types";
 
-const BurgerConstructor = ({ cards }) => {
+const BurgerConstructor = ({ cards, onClickButtonOrder }) => {
     // Временно расссчитываем сумму из моковых данных
     const totalPrice = cards ? cards.reduce((acc, item) => acc + item.price, 0) : 0;
 
@@ -18,6 +19,7 @@ const BurgerConstructor = ({ cards }) => {
                     name={item.name}
                     key={item._id}
                     isFirstOrLastItem={index === 0 || index === cards.length - 1}
+                    onClickButtonOrder={onClickButtonOrder}
                 />)}
             </div>
 
@@ -26,8 +28,15 @@ const BurgerConstructor = ({ cards }) => {
                 <span className="text text_type_digits-medium mr-2">
                     {totalPrice}
                 </span>
-                <CurrencyIcon type="primary"/>
-                <Button htmlType="button" type="primary" size="medium" extraClass={styles.button_order}>
+                <div className={styles.icon_wrapper}>
+                  <CurrencyIcon type="primary"/>
+                </div>
+                <Button htmlType="button"
+                        type="primary"
+                        size="medium"
+                        extraClass={styles.button_order}
+                        onClick={()=>onClickButtonOrder('0')}
+                >
                     Оформить заказ
                 </Button>
             </div>
@@ -35,6 +44,6 @@ const BurgerConstructor = ({ cards }) => {
     );
 }
 
-BurgerConstructor.propTypes = mockedDataPropTypes;
+BurgerConstructor.propTypes = { ...ingredientsPropTypes, onClickButtonOrder: PropTypes.func};
 
 export default BurgerConstructor;

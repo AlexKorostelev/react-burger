@@ -3,3 +3,5 @@ export const tabs = {
     sauce: "Соусы",
     main: "Начинки"
 }
+
+export const baseApiUrl = 'https://norma.nomoreparties.space/api';
