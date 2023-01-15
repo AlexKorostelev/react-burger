@@ -3,8 +3,6 @@
     justify-content: space-between;
     margin-left: 16px;
     flex-wrap: wrap;
-    height: calc(100vh - 420px);
-    overflow: auto;
 }
 
 /* полоса прокрутки (скроллбар) */

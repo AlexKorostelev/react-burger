@@ -3,36 +3,27 @@ import styles from './BurgerIngredients.module.css';
 import IngredientGroup from "./IngredientGroup/IngredientGroup";
 import {tabs} from "../../utils/constants";
 import TabContainer from "./TabContainer/TabContainer";
-import PropTypes from "prop-types";
+import {ingredientsPropTypes} from "../../utils/types";
 
-
-const BurgerIngredients = ({cards}) => {
+const BurgerIngredients = ({ cards }) => {
     const [activeTab, setActiveTab] = React.useState(tabs.bun)
+    const cardsBun = cards.filter(item => item.type === 'bun');
+    const cardsSauce = cards.filter(item => item.type === 'sauce');
+    const cardsMain = cards.filter(item => item.type === 'main');
 
     return (
         <div className={styles.wrapper}>
            <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
             <TabContainer activeTab={activeTab} setActiveTab={setActiveTab}/>
-            <IngredientGroup cards={cards} groupName={activeTab}/>
+            <div className={styles.cards_wrapper}>
+                <IngredientGroup cards={cardsBun} groupName={tabs.bun} />
+                <IngredientGroup cards={cardsSauce} groupName={tabs.sauce} />
+                <IngredientGroup cards={cardsMain} groupName={tabs.main} />
+            </div>
         </div>
     );
 }
 
-BurgerIngredients.propTypes = {
-    cards: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        calories: PropTypes.number.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-        __v: PropTypes.number,
-    }))
-}
+BurgerIngredients.propTypes = ingredientsPropTypes;
 
 export default BurgerIngredients;

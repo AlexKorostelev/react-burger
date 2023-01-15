@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from "./BurgerConstructorItem.module.css";
-import {DeleteIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {DeleteIcon, DragIcon, LockIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Price from "../../common/Price";
 
-const BurgerConstructorItem = ({ name, price, image_mobile }) => {
+const BurgerConstructorItem = ({ name, price, image_mobile, isFirstOrLastItem }) => {
     return (
         <section className={styles.wrapper}>
             <div className={styles.icon_wrapper}>
-                <DragIcon type="primary" />
+                {!isFirstOrLastItem && <DragIcon type="primary" />}
             </div>
             <div className={styles.item_container}>
                 <div className={styles.info_container}>
@@ -21,7 +21,7 @@ const BurgerConstructorItem = ({ name, price, image_mobile }) => {
                 <div className={styles.cost_container}>
                     <Price price={price} />
                     <div className={styles.delete_icon}>
-                        <DeleteIcon type="primary" />
+                        {isFirstOrLastItem ? <LockIcon type="secondary" /> : <DeleteIcon type="primary" />}
                     </div>
                 </div>
             </div>
@@ -33,6 +33,7 @@ BurgerConstructorItem.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     image_mobile: PropTypes.string.isRequired,
+    isFirstOrLastItem: PropTypes.bool
 };
 
 export default BurgerConstructorItem;

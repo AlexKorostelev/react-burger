@@ -17,8 +17,7 @@ const NavButton = ({ children, text, isInactive }) => {
 NavButton.propTypes = {
 	text: PropTypes.string.isRequired,
 	isInactive: PropTypes.bool,
-	children: PropTypes.element,
-	url: PropTypes.string
+	children: PropTypes.element
 }
 
 export default NavButton;

@@ -29,3 +29,13 @@
 .button_order {
     margin-left: 40px;
 }
+
+.icon_wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.icon_wrapper > svg {
+    width: 33px;
+    height: 33px;
+}
