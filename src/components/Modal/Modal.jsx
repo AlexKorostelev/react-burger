@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import { createPortal } from 'react-dom';
 import ModalHeader from "./ModalHeader/ModalHeader";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
@@ -8,21 +8,27 @@ import PropTypes from "prop-types";
 const modalRoot = document.getElementById("react-modals");
 
 const Modal = ({ children, header, onClose }) => {
+  const handleKeyDown = useCallback(
+    (event) => (event.key === 'Escape') && onClose(),
+    [onClose]
+  );
+
   useEffect(() => {
-    window.addEventListener('keydown', onClose);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', onClose);
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [handleKeyDown]);
 
   return createPortal(
-    <ModalOverlay onClose={onClose}>
-      <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
+    <div className={styles.wrapper}>
+      <div className={styles.modal_container} onClick={(e) => e.stopPropagation()}>
         <ModalHeader onClose={onClose} header={header}/>
         {children}
       </div>
-    </ModalOverlay>,
+      <ModalOverlay onClose={onClose} />
+    </div>,
     modalRoot
   );
 }

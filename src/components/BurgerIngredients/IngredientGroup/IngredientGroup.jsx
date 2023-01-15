@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './IngredientGroup.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
-const IngredientGroup = ({ groupName, cards, onClickCardIngredient }) => {
+const IngredientGroup = ({ groupName, cards }) => {
     return (
         cards.length > 0 &&
         <>
@@ -17,7 +17,11 @@ const IngredientGroup = ({ groupName, cards, onClickCardIngredient }) => {
                     price={item.price}
                     name={item.name}
                     count={Number(!index)}
-                    onClickCardIngredient={() => onClickCardIngredient(item._id)}
+                    image_large={item.image_large}
+                    calories={item.calories}
+                    proteins={item.proteins}
+                    fat={item.fat}
+                    carbohydrates={item.carbohydrates}
                     />
                 )}
             </div>
@@ -32,7 +36,11 @@ IngredientGroup.propTypes = {
         price: PropTypes.number.isRequired,
         image: PropTypes.string.isRequired,
         count: PropTypes.number,
-        onClickCardIngredient: PropTypes.func
+        image_large: PropTypes.string.isRequired,
+        calories: PropTypes.number.isRequired,
+        proteins: PropTypes.number.isRequired,
+        fat: PropTypes.number.isRequired,
+        carbohydrates: PropTypes.number.isRequired
     })),
     groupName: PropTypes.string.isRequired
 }

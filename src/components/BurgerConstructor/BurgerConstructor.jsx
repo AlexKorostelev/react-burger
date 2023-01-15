@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from "./BurgerConstructor.module.css";
 import BurgerConstructorItem from "./BurgerConstructorItem/BurgerConstructorItem";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {ingredientsPropTypes} from "../../utils/types";
-import PropTypes from "prop-types";
+import Modal from "../Modal/Modal";
+import OrderDetails from "../OrderDetails/OrderDetails";
 
-const BurgerConstructor = ({ cards, onClickButtonOrder }) => {
+const BurgerConstructor = ({ cards }) => {
+    const [isShowModal, setIsShowModal] = useState(false);
+
     // Временно расссчитываем сумму из моковых данных
     const totalPrice = cards ? cards.reduce((acc, item) => acc + item.price, 0) : 0;
 
@@ -19,7 +22,6 @@ const BurgerConstructor = ({ cards, onClickButtonOrder }) => {
                     name={item.name}
                     key={item._id}
                     isFirstOrLastItem={index === 0 || index === cards.length - 1}
-                    onClickButtonOrder={onClickButtonOrder}
                 />)}
             </div>
 
@@ -35,15 +37,20 @@ const BurgerConstructor = ({ cards, onClickButtonOrder }) => {
                         type="primary"
                         size="medium"
                         extraClass={styles.button_order}
-                        onClick={()=>onClickButtonOrder('0')}
+                        onClick={() => setIsShowModal(true)}
                 >
                     Оформить заказ
                 </Button>
             </div>
+
+          {isShowModal && (
+            <Modal header="" onClose={() => setIsShowModal(false)}>
+              <OrderDetails orderId="0345367"/>
+            </Modal>)}
         </div>
     );
 }
 
-BurgerConstructor.propTypes = { ...ingredientsPropTypes, onClickButtonOrder: PropTypes.func};
+BurgerConstructor.propTypes = ingredientsPropTypes;
 
 export default BurgerConstructor;

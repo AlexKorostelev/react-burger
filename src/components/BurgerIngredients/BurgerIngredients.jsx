@@ -4,9 +4,8 @@ import IngredientGroup from "./IngredientGroup/IngredientGroup";
 import {tabs} from "../../utils/constants";
 import TabContainer from "./TabContainer/TabContainer";
 import {ingredientsPropTypes} from "../../utils/types";
-import PropTypes from "prop-types";
 
-const BurgerIngredients = ({ cards, onClickCardIngredient }) => {
+const BurgerIngredients = ({ cards }) => {
     const [activeTab, setActiveTab] = React.useState(tabs.bun)
     const cardsBun = cards.filter(item => item.type === 'bun');
     const cardsSauce = cards.filter(item => item.type === 'sauce');
@@ -17,14 +16,14 @@ const BurgerIngredients = ({ cards, onClickCardIngredient }) => {
            <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
             <TabContainer activeTab={activeTab} setActiveTab={setActiveTab}/>
             <div className={styles.cards_wrapper}>
-                <IngredientGroup cards={cardsBun} groupName={tabs.bun} onClickCardIngredient={onClickCardIngredient} />
-                <IngredientGroup cards={cardsSauce} groupName={tabs.sauce} onClickCardIngredient={onClickCardIngredient} />
-                <IngredientGroup cards={cardsMain} groupName={tabs.main} onClickCardIngredient={onClickCardIngredient} />
+                <IngredientGroup cards={cardsBun} groupName={tabs.bun} />
+                <IngredientGroup cards={cardsSauce} groupName={tabs.sauce} />
+                <IngredientGroup cards={cardsMain} groupName={tabs.main} />
             </div>
         </div>
     );
 }
 
-BurgerIngredients.propTypes = { ...ingredientsPropTypes, onClickCardIngredient: PropTypes.func };
+BurgerIngredients.propTypes = ingredientsPropTypes;
 
 export default BurgerIngredients;
