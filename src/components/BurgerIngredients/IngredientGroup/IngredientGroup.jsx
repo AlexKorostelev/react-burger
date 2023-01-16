@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import styles from './IngredientGroup.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
-const IngredientGroup = ({ groupName, cards }) => {
+const IngredientGroup = ({ groupName, ingredients }) => {
     return (
-        cards.length > 0 &&
+        ingredients.length > 0 &&
         <>
             <p className="text text_type_main-medium mt-10 mb-6">
                 {groupName}
             </p>
             <div className={styles.cards_container}>
-                {cards.map((item, index) => <Ingredient
+                {ingredients.map((item, index) => <Ingredient
                     key={item._id}
                     image={item.image}
                     price={item.price}
@@ -30,7 +30,7 @@ const IngredientGroup = ({ groupName, cards }) => {
 }
 
 IngredientGroup.propTypes = {
-    cards: PropTypes.arrayOf(PropTypes.shape({
+    ingredients: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,

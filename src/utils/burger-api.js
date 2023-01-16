@@ -8,3 +8,12 @@ const checkResponse = (res) => {
 export const getIngredients = () => {
   return fetch(`${baseApiUrl}/ingredients`).then(checkResponse);
 }
+
+export const sendOrder = async (order) => {
+  const orderData = { ingredients: order.map(item => item._id) };
+  return fetch(`${baseApiUrl}/orders`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json;charset=utf-8'},
+    body: JSON.stringify(orderData)
+  }).then(checkResponse);
+}

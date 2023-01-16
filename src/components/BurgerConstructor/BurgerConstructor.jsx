@@ -1,27 +1,49 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import styles from "./BurgerConstructor.module.css";
 import BurgerConstructorItem from "./BurgerConstructorItem/BurgerConstructorItem";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {ingredientsPropTypes} from "../../utils/types";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import {IngredientsContext} from "../../context/IngredientsContext";
+import { nanoid } from 'nanoid'
+import {sendOrder} from "../../utils/burger-api";
 
-const BurgerConstructor = ({ cards }) => {
-    const [isShowModal, setIsShowModal] = useState(false);
+const BurgerConstructor = () => {
+    const ingredients = useContext(IngredientsContext);
+    // Поскольку DND еще не реализован - собираем бургер из всего по одному
+    const bun = ingredients.find(item => item.type === 'bun');
+    const sauce = ingredients.find(item => item.type === 'sauce');
+    const main = ingredients.find(item => item.type === 'main');
+    const burger = [bun, sauce, main, bun];
+    const totalPrice = burger.reduce((acc, item) => acc + item.price, 0);
 
-    // Временно расссчитываем сумму из моковых данных
-    const totalPrice = cards ? cards.reduce((acc, item) => acc + item.price, 0) : 0;
+    const [order, setOrder] = useState({isShowModal: false, orderId: 0});
+
+    const onClickButtonOrder = () => {
+      sendOrder(burger)
+        .then(data => setOrder({ isShowModal: data.success, orderId: data.order.number}))
+        .catch(() => alert('Произошла ошибка при отправке заказа!'));
+    }
+
+    const setBunName = (index) => {
+      if (index === 0) {
+        return ' (верх)'
+      } else if (index === burger.length - 1) {
+        return ' (низ)'
+      }
+      return '';
+    }
 
     return (
         <div className={styles.wrapper}>
             <div className="mt-25" />
             <div className={styles.items_container}>
-                {cards.map((item, index) => <BurgerConstructorItem
+                {burger.map((item, index) => <BurgerConstructorItem
                     image_mobile={item.image_mobile}
                     price={item.price}
-                    name={item.name}
-                    key={item._id}
-                    isFirstOrLastItem={index === 0 || index === cards.length - 1}
+                    name={item.name + setBunName(index)}
+                    key={nanoid()}
+                    isFirstOrLastItem={index === 0 || index === burger.length - 1}
                 />)}
             </div>
 
@@ -37,20 +59,18 @@ const BurgerConstructor = ({ cards }) => {
                         type="primary"
                         size="medium"
                         extraClass={styles.button_order}
-                        onClick={() => setIsShowModal(true)}
+                        onClick={onClickButtonOrder}
                 >
                     Оформить заказ
                 </Button>
             </div>
 
-          {isShowModal && (
-            <Modal header="" onClose={() => setIsShowModal(false)}>
-              <OrderDetails orderId="0345367"/>
+          {order.isShowModal && (
+            <Modal header="" onClose={() => setOrder({...order, isShowModal: false})}>
+              <OrderDetails orderId={order.orderId}/>
             </Modal>)}
         </div>
     );
 }
-
-BurgerConstructor.propTypes = ingredientsPropTypes;
 
 export default BurgerConstructor;
