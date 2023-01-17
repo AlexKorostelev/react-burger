@@ -4,13 +4,16 @@ import styles from "./BurgerConstructorItem.module.css";
 import {DeleteIcon, DragIcon, LockIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Price from "../../common/Price";
 
-const BurgerConstructorItem = ({ name, price, image_mobile, isFirstOrLastItem }) => {
+const BurgerConstructorItem = ({ name, price, image_mobile, isFirstItem, isLastItem }) => {
+    const isFirstOrLastItem = isFirstItem || isLastItem;
+    const containerClassName = styles.item_container + (isFirstItem ? ` ${styles.bun_top}` : isLastItem ? ` ${styles.bun_bottom}` : '');
+
     return (
         <section className={styles.wrapper}>
             <div className={styles.icon_wrapper}>
                 {!isFirstOrLastItem && <DragIcon type="primary" />}
             </div>
-            <div className={styles.item_container}>
+            <div className={containerClassName}>
                 <div className={styles.info_container}>
                     <img src={image_mobile} alt={name} className={styles.image}/>
                     <p className={`text text_type_main-default ${styles.item_name_container}`}>

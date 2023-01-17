@@ -4,9 +4,10 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import bodyStyles from "./App.module.css"
 import React, {useEffect, useState} from "react";
 import {getIngredients} from "../../utils/burger-api";
+import {IngredientsContext} from "../../context/IngredientsContext";
 
 const App = () => {
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState({success: false, data: []});
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -19,9 +20,11 @@ const App = () => {
     <>
       <AppHeader />
       {ingredients.success && <main className={bodyStyles.wrapper}>
-        <BurgerIngredients cards={ingredients.data} />
-        <div className={bodyStyles.separator} />
-        <BurgerConstructor cards={ingredients.data} />
+        <IngredientsContext.Provider value={ingredients.data}>
+          <BurgerIngredients />
+          <div className={bodyStyles.separator} />
+          <BurgerConstructor />
+        </IngredientsContext.Provider>
       </main>}
 
       {hasError &&
