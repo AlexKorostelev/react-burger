@@ -43,7 +43,8 @@ const BurgerConstructor = () => {
                     price={item.price}
                     name={item.name + setBunName(index)}
                     key={nanoid()}
-                    isFirstOrLastItem={index === 0 || index === burger.length - 1}
+                    isFirstItem={index === 0}
+                    isLastItem={index === burger.length - 1}
                 />)}
             </div>
 

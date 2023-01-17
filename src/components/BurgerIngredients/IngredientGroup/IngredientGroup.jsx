@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import PropTypes from 'prop-types';
 import styles from './IngredientGroup.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
-const IngredientGroup = ({ groupName, ingredients }) => {
+const IngredientGroup = forwardRef(({ groupName, ingredients }, ref) => {
     return (
         ingredients.length > 0 &&
-        <>
+        <div ref={ref}>
             <p className="text text_type_main-medium mt-10 mb-6">
                 {groupName}
             </p>
@@ -25,9 +25,9 @@ const IngredientGroup = ({ groupName, ingredients }) => {
                     />
                 )}
             </div>
-        </>
+        </div>
     );
-}
+});
 
 IngredientGroup.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypes.shape({
