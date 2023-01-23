@@ -1,9 +1,10 @@
 import styles from './IngredientDetails.module.css';
-import PropTypes from "prop-types";
 import CompositionBlock from "./CompositionBlock/CompositionBlock";
+import {useSelector} from "react-redux";
 
-const IngredientDetails = (props) => {
-  const {name, calories, proteins, fat, carbohydrates, image_large} = props;
+const IngredientDetails = () => {
+  const {ingredientDetails} = useSelector(store => store);
+  const {name, calories, proteins, fat, carbohydrates, image_large} = ingredientDetails;
 
   return (
     <div className={styles.wrapper}>
@@ -18,14 +19,5 @@ const IngredientDetails = (props) => {
     </div>
   );
 }
-
-IngredientDetails.propTypes = {
-  name: PropTypes.string.isRequired,
-  calories: PropTypes.number.isRequired,
-  proteins: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
-  image_large: PropTypes.string.isRequired
-};
 
 export default IngredientDetails;

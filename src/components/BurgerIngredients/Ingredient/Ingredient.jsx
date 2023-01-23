@@ -4,14 +4,32 @@ import styles from './Ingredient.module.css';
 import Price from "../../common/Price";
 import Modal from "../../Modal/Modal";
 import IngredientDetails from "../../IngredientDetails/IngredientDetails";
+import {useDispatch, useSelector} from "react-redux";
+import {addIngredient} from "../../../services/actions/constructorItems";
+import {setIngredientDetails} from "../../../services/actions/ingredientDetails";
+import {increaseIngredientCount} from "../../../services/actions/ingredients";
 
-const Ingredient = (props) => {
+const Ingredient = ({ id }) => {
   const [isShowModal, setIsShowModal] = useState(false);
-  const { image, name, price, count = 0, image_large, calories, fat, proteins, carbohydrates } = props;
+  const { ingredients } = useSelector(store => store.ingredients);
+  const ingredient = ingredients.find(item => item._id === id);
+  const { image, name, price, count } = ingredient;
+
+  const dispatch = useDispatch();
+
+  const handlerIngredientClick = () => {
+    dispatch(setIngredientDetails(ingredient));
+    dispatch(increaseIngredientCount(ingredient._id));
+    //setIsShowModal(true);
+    //=======================================
+    //TODO: Добавлено временно для теста! Убрать!
+    dispatch(addIngredient(ingredient));
+    //=======================================
+  }
 
   return (
     <>
-      <section className={styles.wrapper} onClick={() => setIsShowModal(true)}>
+      <section className={styles.wrapper} onClick={handlerIngredientClick}>
           <div className='ml-4 mr-4'>
               <img src={image} alt={name}/>
           </div>
@@ -31,12 +49,7 @@ const Ingredient = (props) => {
 
       {isShowModal && (
         <Modal header="Детали ингредиента" onClose={() => setIsShowModal(false)}>
-          <IngredientDetails name={name}
-                             image_large={image_large}
-                             calories={calories}
-                             proteins={proteins}
-                             fat={fat}
-                             carbohydrates={carbohydrates}/>
+          <IngredientDetails />
         </Modal>
       )}
     </>
@@ -44,15 +57,7 @@ const Ingredient = (props) => {
 }
 
 Ingredient.propTypes = {
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    count: PropTypes.number,
-    image_large: PropTypes.string.isRequired,
-    calories: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired
+  id: PropTypes.string.isRequired,
 };
 
 export default Ingredient;

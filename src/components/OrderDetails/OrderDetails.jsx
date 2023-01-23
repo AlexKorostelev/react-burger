@@ -1,12 +1,12 @@
 import styles from './OrderDetails.module.css';
-import PropTypes from "prop-types";
 import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
-const OrderDetails = ({ orderId }) => {
+const OrderDetails = ({orderNumber}) => {
   return (
     <div className={styles.wrapper}>
       <p className="text text_type_digits-large">
-        {orderId}
+        {orderNumber!==0 && orderNumber}
       </p>
       <p className="text text_type_main-medium mt-8 mb-15">
         Идентификатор заказа
@@ -25,7 +25,7 @@ const OrderDetails = ({ orderId }) => {
 }
 
 OrderDetails.propTypes = {
-  orderId: PropTypes.number.isRequired
+  orderNumber: PropTypes.number.isRequired
 };
 
 export default OrderDetails;

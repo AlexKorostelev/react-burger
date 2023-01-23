@@ -30,6 +30,16 @@
     margin-left: 40px;
 }
 
+.button_disabled {
+    filter: grayscale(100);
+    cursor: not-allowed;
+}
+
+.button_disabled:hover {
+    filter: grayscale(100);
+    box-shadow: none;
+}
+
 .icon_wrapper {
     display: flex;
     align-items: center;
