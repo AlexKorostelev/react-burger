@@ -6,14 +6,29 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import {useDispatch, useSelector} from "react-redux";
 import {sendBurgerOrder} from "../../services/actions/order";
+import {useDrop} from "react-dnd";
+import {addIngredient} from "../../services/actions/constructorItems";
+import {increaseIngredientCount} from "../../services/actions/ingredients";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { constructorItems } = useSelector(store => store);
+  const { constructorItems, ingredients } = useSelector(store => store);
   const { orderNumber } = useSelector(store => store.order);
   const [isShowModal, setIsShowModal] = useState(false);
   const totalPrice = constructorItems.reduce((acc, item) => acc + item.price, 0);
   const hasBun = !!constructorItems.find(item => item.type === 'bun')
+
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "ingredient",
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(dragItem) {
+      const ingredient = ingredients.ingredients.find(item => item._id === dragItem.id);
+      dispatch(addIngredient(ingredient));
+      dispatch(increaseIngredientCount(ingredient._id));
+    },
+  });
 
   const onClickButtonOrder = () => {
     dispatch(sendBurgerOrder(constructorItems));
@@ -34,10 +49,12 @@ const BurgerConstructor = () => {
     />)
   },[constructorItems, hasBun])
 
+  const itemsContainerStyle = isHover ? {border: '1px solid #4c4cff'} : {};
+
   return (
       <div className={styles.wrapper}>
           <div className="mt-25" />
-          <div className={styles.items_container}>
+          <div className={styles.items_container} style={itemsContainerStyle} ref={dropTarget}>
               {constructorItemsList}
           </div>
 

@@ -5,6 +5,8 @@ import bodyStyles from "./App.module.css"
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getBurgerIngredients} from "../../services/actions/ingredients";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "react-dnd";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -18,9 +20,11 @@ const App = () => {
     <>
       <AppHeader />
       {ingredients.length > 0 && <main className={bodyStyles.wrapper}>
-        <BurgerIngredients />
-        <div className={bodyStyles.separator} />
-        <BurgerConstructor />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <div className={bodyStyles.separator} />
+          <BurgerConstructor />
+        </DndProvider>
       </main>}
 
       {ingredientsFailed &&

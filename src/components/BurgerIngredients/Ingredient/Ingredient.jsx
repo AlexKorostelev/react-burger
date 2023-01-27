@@ -5,9 +5,8 @@ import Price from "../../common/Price";
 import Modal from "../../Modal/Modal";
 import IngredientDetails from "../../IngredientDetails/IngredientDetails";
 import {useDispatch, useSelector} from "react-redux";
-import {addIngredient} from "../../../services/actions/constructorItems";
 import {setIngredientDetails} from "../../../services/actions/ingredientDetails";
-import {increaseIngredientCount} from "../../../services/actions/ingredients";
+import {useDrag} from "react-dnd";
 
 const Ingredient = ({ id }) => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -17,19 +16,19 @@ const Ingredient = ({ id }) => {
 
   const dispatch = useDispatch();
 
+  const [, dragRef] = useDrag({
+    type: "ingredient",
+    item: {id}
+  });
+
   const handlerIngredientClick = () => {
     dispatch(setIngredientDetails(ingredient));
-    dispatch(increaseIngredientCount(ingredient._id));
-    //setIsShowModal(true);
-    //=======================================
-    //TODO: Добавлено временно для теста! Убрать!
-    dispatch(addIngredient(ingredient));
-    //=======================================
+    setIsShowModal(true);
   }
 
   return (
     <>
-      <section className={styles.wrapper} onClick={handlerIngredientClick}>
+      <section className={styles.wrapper} onClick={handlerIngredientClick} ref={dragRef}>
           <div className='ml-4 mr-4'>
               <img src={image} alt={name}/>
           </div>

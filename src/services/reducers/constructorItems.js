@@ -1,5 +1,5 @@
 import {
-  ADD_INGREDIENT,
+  ADD_INGREDIENT, MOVE_INGREDIENT,
   REMOVE_INGREDIENT,
 } from "../actions/constructorItems";
 import {nanoid} from "nanoid";
@@ -26,6 +26,21 @@ export const constructorItemsReducer = (state = initialState, action) => {
     }
     case REMOVE_INGREDIENT: {
       return state.filter(item => item.id !== action.id)
+    }
+    case MOVE_INGREDIENT: {
+      const prevItem = state.find(item => item.id === action.prevId);
+      const nextItem = state.find(item => item.id === action.nextId);
+
+      return state.map(item => {
+          switch (item.id) {
+            case action.prevId:
+              return nextItem;
+            case action.nextId:
+              return prevItem;
+            default:
+              return item;
+          }
+        })
     }
     default: {
       return state;
