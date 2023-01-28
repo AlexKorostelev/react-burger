@@ -7,6 +7,8 @@
 .items_container {
     height: calc(100vh - 422px);
     overflow: auto;
+    border: 1px solid transparent;
+    border-radius: 40px;
 }
 
 /* полоса прокрутки (скроллбар) */
@@ -28,6 +30,16 @@
 
 .button_order {
     margin-left: 40px;
+}
+
+.button_disabled {
+    filter: grayscale(100);
+    cursor: not-allowed;
+}
+
+.button_disabled:hover {
+    filter: grayscale(100);
+    box-shadow: none;
 }
 
 .icon_wrapper {

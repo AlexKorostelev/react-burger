@@ -2,32 +2,33 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import bodyStyles from "./App.module.css"
-import React, {useEffect, useState} from "react";
-import {getIngredients} from "../../utils/burger-api";
-import {IngredientsContext} from "../../context/IngredientsContext";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getBurgerIngredients} from "../../services/actions/ingredients";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "react-dnd";
+import {selectIngredients} from "../../utils/selectors";
 
 const App = () => {
-  const [ingredients, setIngredients] = useState({success: false, data: []});
-  const [hasError, setHasError] = useState(false);
+  const dispatch = useDispatch();
+  const { ingredients, ingredientsFailed } = useSelector(selectIngredients);
 
   useEffect(() => {
-    getIngredients()
-      .then(data => setIngredients(data))
-      .catch(() => setHasError(true));
-  }, []);
+    dispatch(getBurgerIngredients());
+  }, [dispatch]);
 
   return (
     <>
       <AppHeader />
-      {ingredients.success && <main className={bodyStyles.wrapper}>
-        <IngredientsContext.Provider value={ingredients.data}>
+      {ingredients.length > 0 && <main className={bodyStyles.wrapper}>
+        <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
           <div className={bodyStyles.separator} />
           <BurgerConstructor />
-        </IngredientsContext.Provider>
+        </DndProvider>
       </main>}
 
-      {hasError &&
+      {ingredientsFailed &&
         <div className={bodyStyles.error}>
           <p className="text text_type_main-default">
             При загрузке данных произошла ошибка.

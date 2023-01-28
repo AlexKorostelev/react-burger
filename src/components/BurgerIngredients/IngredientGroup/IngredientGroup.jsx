@@ -1,27 +1,25 @@
-import React, {forwardRef} from 'react';
+import React, {useMemo, forwardRef} from 'react';
 import PropTypes from 'prop-types';
 import styles from './IngredientGroup.module.css';
 import Ingredient from '../Ingredient/Ingredient';
+import {useSelector} from "react-redux";
+import {tabs} from "../../../utils/constants";
+import {selectIngredients} from "../../../utils/selectors";
 
-const IngredientGroup = forwardRef(({ groupName, ingredients }, ref) => {
+const IngredientGroup = forwardRef(({ groupName }, ref) => {
+    const { ingredients } = useSelector(selectIngredients);
+    const ingredientsGroup = useMemo(() => ingredients.filter(item => item.type === groupName), [groupName, ingredients]);
+
     return (
-        ingredients.length > 0 &&
+      ingredientsGroup.length > 0 &&
         <div ref={ref}>
             <p className="text text_type_main-medium mt-10 mb-6">
-                {groupName}
+                {tabs[groupName]}
             </p>
             <div className={styles.cards_container}>
-                {ingredients.map((item, index) => <Ingredient
+                {ingredientsGroup.map((item) => <Ingredient
                     key={item._id}
-                    image={item.image}
-                    price={item.price}
-                    name={item.name}
-                    count={Number(!index)}
-                    image_large={item.image_large}
-                    calories={item.calories}
-                    proteins={item.proteins}
-                    fat={item.fat}
-                    carbohydrates={item.carbohydrates}
+                    id={item._id}
                     />
                 )}
             </div>
