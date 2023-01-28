@@ -30,9 +30,8 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case GET_INGREDIENTS_FAILED: {
       return {
-        ...state,
-        ingredientsFailed: true,
-        ingredientsRequest: false
+        ...initialState,
+        ingredientsFailed: true
       };
     }
     case INCREASE_INGREDIENT_COUNT: {

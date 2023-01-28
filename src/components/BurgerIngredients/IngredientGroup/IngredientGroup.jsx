@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react';
+import React, {useMemo, forwardRef} from 'react';
 import PropTypes from 'prop-types';
 import styles from './IngredientGroup.module.css';
 import Ingredient from '../Ingredient/Ingredient';
@@ -7,7 +7,7 @@ import {tabs} from "../../../utils/constants";
 
 const IngredientGroup = forwardRef(({ groupName }, ref) => {
     const { ingredients } = useSelector(store => store.ingredients);
-    const ingredientsGroup = ingredients.filter(item => item.type === groupName);
+    const ingredientsGroup = useMemo(() => ingredients.filter(item => item.type === groupName), [groupName, ingredients]);
 
     return (
       ingredientsGroup.length > 0 &&

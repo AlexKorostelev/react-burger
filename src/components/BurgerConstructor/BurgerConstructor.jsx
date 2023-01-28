@@ -13,10 +13,11 @@ import {increaseIngredientCount} from "../../services/actions/ingredients";
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const { constructorItems, ingredients } = useSelector(store => store);
-  const { orderNumber } = useSelector(store => store.order);
+  const { orderNumber, orderRequest } = useSelector(store => store.order);
   const [isShowModal, setIsShowModal] = useState(false);
-  const totalPrice = constructorItems.reduce((acc, item) => acc + item.price, 0);
   const hasBun = !!constructorItems.find(item => item.type === 'bun')
+
+  const totalPrice = useMemo(() => constructorItems.reduce((acc, item) => acc + item.price, 0), [constructorItems]);
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
@@ -76,7 +77,7 @@ const BurgerConstructor = () => {
               </Button>
           </div>
 
-        {isShowModal && orderNumber!==0 && (
+        {isShowModal && !orderRequest && (
           <Modal header="" onClose={() => setIsShowModal(false)}>
             <OrderDetails orderNumber={orderNumber}/>
           </Modal>)}
