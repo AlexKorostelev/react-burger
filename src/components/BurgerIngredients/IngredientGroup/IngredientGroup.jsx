@@ -4,9 +4,10 @@ import styles from './IngredientGroup.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 import {useSelector} from "react-redux";
 import {tabs} from "../../../utils/constants";
+import {selectIngredients} from "../../../utils/selectors";
 
 const IngredientGroup = forwardRef(({ groupName }, ref) => {
-    const { ingredients } = useSelector(store => store.ingredients);
+    const { ingredients } = useSelector(selectIngredients);
     const ingredientsGroup = useMemo(() => ingredients.filter(item => item.type === groupName), [groupName, ingredients]);
 
     return (

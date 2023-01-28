@@ -7,10 +7,11 @@ import IngredientDetails from "../../IngredientDetails/IngredientDetails";
 import {useDispatch, useSelector} from "react-redux";
 import {setIngredientDetails} from "../../../services/actions/ingredientDetails";
 import {useDrag} from "react-dnd";
+import {selectIngredients} from "../../../utils/selectors";
 
 const Ingredient = ({ id }) => {
   const [isShowModal, setIsShowModal] = useState(false);
-  const { ingredients } = useSelector(store => store.ingredients);
+  const { ingredients } = useSelector(selectIngredients);
   const ingredient = ingredients.find(item => item._id === id);
   const { image, name, price, count } = ingredient;
 

@@ -9,11 +9,12 @@ import {sendBurgerOrder} from "../../services/actions/order";
 import {useDrop} from "react-dnd";
 import {addIngredient} from "../../services/actions/constructorItems";
 import {increaseIngredientCount} from "../../services/actions/ingredients";
+import {selectStore} from "../../utils/selectors";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { constructorItems, ingredients } = useSelector(store => store);
-  const { orderNumber, orderRequest } = useSelector(store => store.order);
+  const { constructorItems, ingredients, order } = useSelector(selectStore);
+  const { orderNumber, orderRequest } = order;
   const [isShowModal, setIsShowModal] = useState(false);
   const hasBun = !!constructorItems.find(item => item.type === 'bun')
 

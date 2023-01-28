@@ -1,9 +1,10 @@
 import styles from './IngredientDetails.module.css';
 import CompositionBlock from "./CompositionBlock/CompositionBlock";
 import {useSelector} from "react-redux";
+import {selectIngredientDetails} from "../../utils/selectors";
 
 const IngredientDetails = () => {
-  const {ingredientDetails} = useSelector(store => store);
+  const ingredientDetails = useSelector(selectIngredientDetails);
   const {name, calories, proteins, fat, carbohydrates, image_large} = ingredientDetails;
 
   return (

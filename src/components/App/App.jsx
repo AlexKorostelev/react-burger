@@ -7,10 +7,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {getBurgerIngredients} from "../../services/actions/ingredients";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "react-dnd";
+import {selectIngredients} from "../../utils/selectors";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { ingredients, ingredientsFailed } = useSelector(store => store.ingredients);
+  const { ingredients, ingredientsFailed } = useSelector(selectIngredients);
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
