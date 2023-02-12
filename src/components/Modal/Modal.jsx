@@ -4,13 +4,20 @@ import ModalHeader from "./ModalHeader/ModalHeader";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import styles from './Modal.module.css';
 import PropTypes from "prop-types";
+import {useNavigate} from "react-router-dom";
 
 const modalRoot = document.getElementById("react-modals");
 
 const Modal = ({ children, header, onClose }) => {
+  const navigate = useNavigate();
+
+  const onCloseHandler = useCallback(() => {
+    onClose ? onClose() : navigate('/');
+  },[navigate, onClose])
+
   const handleKeyDown = useCallback(
-    (event) => (event.key === 'Escape') && onClose(),
-    [onClose]
+    (event) => (event.key === 'Escape') && onCloseHandler(),
+    [onCloseHandler]
   );
 
   useEffect(() => {
@@ -24,10 +31,10 @@ const Modal = ({ children, header, onClose }) => {
   return createPortal(
     <div className={styles.wrapper}>
       <div className={styles.modal_container} onClick={(e) => e.stopPropagation()}>
-        <ModalHeader onClose={onClose} header={header}/>
+        <ModalHeader onClose={onCloseHandler} header={header}/>
         {children}
       </div>
-      <ModalOverlay onClose={onClose} />
+      <ModalOverlay onClose={onCloseHandler} />
     </div>,
     modalRoot
   );

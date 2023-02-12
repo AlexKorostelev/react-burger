@@ -17,7 +17,7 @@ const BurgerConstructor = () => {
   const { orderNumber, orderRequest } = order;
   const [isShowModal, setIsShowModal] = useState(false);
   const hasBun = !!constructorItems.find(item => item.type === 'bun')
-
+  const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
   const totalPrice = useMemo(() => constructorItems.reduce((acc, item) => acc + item.price, 0), [constructorItems]);
 
   const [{ isHover }, dropTarget] = useDrop({
@@ -52,6 +52,7 @@ const BurgerConstructor = () => {
   },[constructorItems, hasBun])
 
   const itemsContainerStyle = isHover ? {border: '1px solid #4c4cff'} : {};
+  const isShowButtonOrder = hasBun && isAuthChecked;
 
   return (
       <div className={styles.wrapper}>
@@ -71,7 +72,7 @@ const BurgerConstructor = () => {
               <Button htmlType="button"
                       type="primary"
                       size="medium"
-                      extraClass={`${styles.button_order} ${hasBun ? '' : styles.button_disabled}`}
+                      extraClass={`${styles.button_order} ${isShowButtonOrder ? '' : styles.button_disabled}`}
                       onClick={hasBun ? onClickButtonOrder : undefined}
               >
                   Оформить заказ
@@ -80,7 +81,7 @@ const BurgerConstructor = () => {
 
         {isShowModal && !orderRequest && (
           <Modal header="" onClose={() => setIsShowModal(false)}>
-            <OrderDetails orderNumber={orderNumber}/>
+          <OrderDetails orderNumber={orderNumber}/>
           </Modal>)}
       </div>
   );

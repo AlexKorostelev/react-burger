@@ -1,39 +1,42 @@
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import bodyStyles from "./App.module.css"
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {getBurgerIngredients} from "../../services/actions/ingredients";
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {DndProvider} from "react-dnd";
-import {selectIngredients} from "../../utils/selectors";
+import React from "react";
+import Main from "../../pages/Main/Main";
+import {Routes, Route, useLocation} from "react-router-dom";
+import Login from "../../pages/Login/Login";
+import Register from "../../pages/Register/Register";
+import Profile from "../../pages/Profile/Profile";
+import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "../../pages/ResetPassword/ResetPassword";
+import RequiredAuth from "../common/RequiredAuth";
+import Orders from "../../pages/Orders/Orders";
+import Modal from "../Modal/Modal";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import IngredientPage from "../../pages/IngredientPage/IngredientPage";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const { ingredients, ingredientsFailed } = useSelector(selectIngredients);
-
-  useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
+  const location = useLocation();
+  const background = location.state && location.state.background;
 
   return (
     <>
       <AppHeader />
-      {ingredients.length > 0 && <main className={bodyStyles.wrapper}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <div className={bodyStyles.separator} />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>}
-
-      {ingredientsFailed &&
-        <div className={bodyStyles.error}>
-          <p className="text text_type_main-default">
-            При загрузке данных произошла ошибка.
-          </p>
-        </div>}
+      <Routes location={background || location}>
+        <Route path="/" element={<Main />} />
+        <Route path="/ingredients/:id" element={<IngredientPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<RequiredAuth redirectTo={'/login'}><Profile /></RequiredAuth>} />
+        <Route path="/profile/orders" element={<RequiredAuth redirectTo={'/login'}><Orders /></RequiredAuth>} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+      </Routes>
+      {background && <Routes>
+        <Route path="/ingredients/:id" element={
+          <Modal header="Детали ингредиента">
+            <IngredientDetails />
+          </Modal>}
+        />
+      </Routes>}
     </>
   )
 }
