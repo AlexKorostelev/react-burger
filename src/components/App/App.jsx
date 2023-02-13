@@ -1,5 +1,5 @@
 import AppHeader from "../AppHeader/AppHeader";
-import React from "react";
+import React, {useEffect} from "react";
 import Main from "../../pages/Main/Main";
 import {Routes, Route, useLocation} from "react-router-dom";
 import Login from "../../pages/Login/Login";
@@ -12,10 +12,19 @@ import Orders from "../../pages/Orders/Orders";
 import Modal from "../Modal/Modal";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import IngredientPage from "../../pages/IngredientPage/IngredientPage";
+import {getBurgerIngredients} from "../../services/actions/ingredients";
+import {useDispatch} from "react-redux";
+import {getUserProfile} from "../../services/actions/user";
 
 const App = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
+
+  useEffect(() => {
+    dispatch(getBurgerIngredients());
+    dispatch(getUserProfile());
+  }, [dispatch]);
 
   return (
     <>
