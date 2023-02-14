@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Ingredient.module.css';
 import Price from "../../common/Price";
-import Modal from "../../Modal/Modal";
-import IngredientDetails from "../../IngredientDetails/IngredientDetails";
 import {useDispatch, useSelector} from "react-redux";
 import {setIngredientDetails} from "../../../services/actions/ingredientDetails";
 import {useDrag} from "react-dnd";
 import {selectIngredients} from "../../../utils/selectors";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Ingredient = ({ id }) => {
-  const [isShowModal, setIsShowModal] = useState(false);
   const { ingredients } = useSelector(selectIngredients);
   const ingredient = ingredients.find(item => item._id === id);
   const { image, name, price, count } = ingredient;
 
+  const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [, dragRef] = useDrag({
     type: "ingredient",
@@ -24,7 +24,7 @@ const Ingredient = ({ id }) => {
 
   const handlerIngredientClick = () => {
     dispatch(setIngredientDetails(ingredient));
-    setIsShowModal(true);
+    navigate(`/ingredients/${id}`, {state: {background: true}})
   }
 
   return (
@@ -46,12 +46,6 @@ const Ingredient = ({ id }) => {
               </span>
           </div>}
       </section>
-
-      {isShowModal && (
-        <Modal header="Детали ингредиента" onClose={() => setIsShowModal(false)}>
-          <IngredientDetails />
-        </Modal>
-      )}
     </>
   );
 }

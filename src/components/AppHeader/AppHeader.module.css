@@ -31,6 +31,10 @@
     justify-content: center;
 }
 
+.block_center:hover {
+    cursor: pointer;
+}
+
 .block_right {
     composes: block;
     justify-content: flex-end;

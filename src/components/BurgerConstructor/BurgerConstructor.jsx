@@ -10,15 +10,19 @@ import {useDrop} from "react-dnd";
 import {addIngredient} from "../../services/actions/constructorItems";
 import {increaseIngredientCount} from "../../services/actions/ingredients";
 import {selectStore} from "../../utils/selectors";
+import {useNavigate} from "react-router-dom";
+import Spinner from "../common/Spinner";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { constructorItems, ingredients, order } = useSelector(selectStore);
   const { orderNumber, orderRequest } = order;
   const [isShowModal, setIsShowModal] = useState(false);
   const hasBun = !!constructorItems.find(item => item.type === 'bun')
-
+  const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
   const totalPrice = useMemo(() => constructorItems.reduce((acc, item) => acc + item.price, 0), [constructorItems]);
+  const isShowButtonOrder = hasBun && isAuthChecked;
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
@@ -33,22 +37,31 @@ const BurgerConstructor = () => {
   });
 
   const onClickButtonOrder = () => {
-    dispatch(sendBurgerOrder(constructorItems));
-    setIsShowModal(true);
+    if (isAuthChecked) {
+      dispatch(sendBurgerOrder(constructorItems));
+      setIsShowModal(true);
+    } else {
+      navigate('/login');
+    }
   }
 
   const constructorItemsList = useMemo(() => {
-    return constructorItems.map((item, index) => <BurgerConstructorItem
-      image_mobile={item.image_mobile}
-      _id={item._id}
-      id={item.id}
-      key={item.id}
-      price={item.price}
-      name={item.name}
-      isFirstItem={index === 0}
-      isLastItem={index === constructorItems.length - 1}
-      hasBun={hasBun}
-    />)
+    return constructorItems.map((item, index) => {
+      const isFirstItem = index === 0;
+      const isLastItem = index === constructorItems.length - 1;
+
+      return <BurgerConstructorItem
+        image_mobile={item.image_mobile}
+        _id={item._id}
+        id={item.id}
+        key={item.id}
+        price={item.price}
+        name={item.name + (isFirstItem ? ' (верх)' : isLastItem ? ' (низ)' : '')}
+        isFirstItem={isFirstItem}
+        isLastItem={isLastItem}
+        hasBun={hasBun}
+      />
+    })
   },[constructorItems, hasBun])
 
   const itemsContainerStyle = isHover ? {border: '1px solid #4c4cff'} : {};
@@ -71,17 +84,18 @@ const BurgerConstructor = () => {
               <Button htmlType="button"
                       type="primary"
                       size="medium"
-                      extraClass={`${styles.button_order} ${hasBun ? '' : styles.button_disabled}`}
+                      extraClass={`${styles.button_order} ${isShowButtonOrder ? '' : styles.button_disabled}`}
                       onClick={hasBun ? onClickButtonOrder : undefined}
               >
                   Оформить заказ
               </Button>
           </div>
-
-        {isShowModal && !orderRequest && (
-          <Modal header="" onClose={() => setIsShowModal(false)}>
-            <OrderDetails orderNumber={orderNumber}/>
-          </Modal>)}
+        {isShowModal && (
+          orderRequest
+            ? <Spinner />
+            : <Modal header="" onClose={() => setIsShowModal(false)}>
+                <OrderDetails orderNumber={orderNumber}/>
+              </Modal>)}
       </div>
   );
 }
