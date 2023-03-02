@@ -1,12 +1,12 @@
 .wrapper {
-    width: 640px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .composition_blocks {
-    display: flex;
-    justify-content: space-between;
-    margin: 32px 0 60px 0;
+  display: flex;
+  justify-content: space-between;
+  margin: 32px 0 60px 0;
 }

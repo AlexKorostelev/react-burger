@@ -1,55 +1,55 @@
 .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 8px 0;
 }
 
 .icon_wrapper {
-    width: 32px;
+  width: 32px;
 }
 
 .item_container {
-    width: 536px;
-    height: 80px;
-    background-color: #1c1c21;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 536px;
+  height: 80px;
+  background-color: #1c1c21;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .bun_top {
-    border-radius: 60px 60px 30px 30px;
+  border-radius: 60px 60px 30px 30px;
 }
 
 .bun_bottom {
-    border-radius: 30px 30px 60px 60px;
+  border-radius: 30px 30px 60px 60px;
 }
 
 .image {
-    width: 80px;
-    height: 40px;
-    margin-left: 24px;
+  width: 80px;
+  height: 40px;
+  margin-left: 24px;
 }
 
 .info_container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .cost_container {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .delete_icon {
-    display: flex;
-    align-items: center;
-    margin: 0 32px 0 20px;
+  display: flex;
+  align-items: center;
+  margin: 0 32px 0 20px;
 }
 
 .item_name_container {
-    margin-right: 20px;
+  margin-right: 20px;
 }
