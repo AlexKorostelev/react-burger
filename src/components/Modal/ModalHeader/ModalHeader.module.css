@@ -1,21 +1,21 @@
 .wrapper {
-    display: flex;
-    height: 100px;
-    width: 100%;
-    align-items: flex-end;
+  display: flex;
+  height: 100px;
+  width: 100%;
+  align-items: flex-end;
 }
 
 .container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-    margin: 0 40px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin: 0 40px;
 }
 
 .icon_container {
-    display: flex;
-    align-items: center;
-    margin-left: 40px;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+  cursor: pointer;
 }

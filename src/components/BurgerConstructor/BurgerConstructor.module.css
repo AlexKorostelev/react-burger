@@ -1,53 +1,53 @@
 .wrapper {
-    width: 600px;
-    display: flex;
-    flex-direction: column;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
 }
 
 .items_container {
-    height: calc(100vh - 422px);
-    overflow: auto;
-    border: 1px solid transparent;
-    border-radius: 40px;
+  height: calc(100vh - 422px);
+  overflow: auto;
+  border: 1px solid transparent;
+  border-radius: 40px;
 }
 
 /* полоса прокрутки (скроллбар) */
 ::-webkit-scrollbar {
-    width: 8px; /* ширина для вертикального скролла */
-    background-color: #2f2f37;
+  width: 8px; /* ширина для вертикального скролла */
+  background-color: #2f2f37;
 }
 
 /* ползунок скроллбара */
 ::-webkit-scrollbar-thumb {
-    background-color: #8585ad;
+  background-color: #8585ad;
 }
 
 .total_container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .button_order {
-    margin-left: 40px;
+  margin-left: 40px;
 }
 
 .button_disabled {
-    filter: grayscale(100);
-    cursor: not-allowed;
+  filter: grayscale(100);
+  cursor: not-allowed;
 }
 
 .button_disabled:hover {
-    filter: grayscale(100);
-    box-shadow: none;
+  filter: grayscale(100);
+  box-shadow: none;
 }
 
 .icon_wrapper {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .icon_wrapper > svg {
-    width: 33px;
-    height: 33px;
+  width: 33px;
+  height: 33px;
 }

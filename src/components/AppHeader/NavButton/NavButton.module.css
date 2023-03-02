@@ -1,22 +1,22 @@
 .wrapper {
-    display: flex;
-    cursor: pointer;
+  display: flex;
+  cursor: pointer;
 }
 
 .link {
-    text-decoration: none;
-    color: #8585ad;
+  text-decoration: none;
+  color: #8585ad;
 }
 
-.link:hover>nav>svg {
-    fill: #f2f2f3;
+.link:hover > nav > svg {
+  fill: #f2f2f3;
 }
 
 .link_active {
-    text-decoration: none;
-    color: #f2f2f3;
+  text-decoration: none;
+  color: #f2f2f3;
 }
 
-.link:hover>nav>span {
-    color: #f2f2f3;
+.link:hover > nav > span {
+  color: #f2f2f3;
 }

@@ -1,45 +1,45 @@
 .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 980px;
-    height: 88px;
-    min-height: 88px;
-    background-color: #1c1c21;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 980px;
+  height: 88px;
+  min-height: 88px;
+  background-color: #1c1c21;
 }
 
 .blocks_container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1280px;
 }
 
 .block {
-    min-width: 290px;
-    display: flex;
-    align-items: center;
+  min-width: 290px;
+  display: flex;
+  align-items: center;
 }
 
 .block_left {
-    composes: block;
-    justify-content: flex-start;
+  composes: block;
+  justify-content: flex-start;
 }
 
 .block_center {
-    composes: block;
-    justify-content: center;
+  composes: block;
+  justify-content: center;
 }
 
 .block_center:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .block_right {
-    composes: block;
-    justify-content: flex-end;
+  composes: block;
+  justify-content: flex-end;
 }
 
 .buttons_separator {
-    width: 8px;
+  width: 8px;
 }

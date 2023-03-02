@@ -1,12 +1,12 @@
 .wrapper {
-    width: 600px;
+  width: 600px;
 }
 
 .tab_container {
-    display: flex;
+  display: flex;
 }
 
 .cards_wrapper {
-    height: calc(100vh - 324px);
-    overflow: auto;
+  height: calc(100vh - 324px);
+  overflow: auto;
 }
