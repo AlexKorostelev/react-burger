@@ -25,8 +25,8 @@ const NavButton: FC<INavButtonProps> = ({ text, icon, linkTo }) => {
       case '/':
         setIsActive(linkTo === '/');
         break;
-      case '/order':
-        setIsActive(linkTo === '/order');
+      case '/feed':
+        setIsActive(linkTo === '/feed');
         break;
       case '/profile':
         setIsActive(linkTo === '/profile');

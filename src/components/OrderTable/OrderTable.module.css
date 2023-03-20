@@ -1,8 +1,10 @@
-.cards_container {
-  display: flex;
-  justify-content: space-between;
-  margin-left: 16px;
-  flex-wrap: wrap;
+.wrapper {
+  width: 600px;
+}
+
+.cards_wrapper {
+  height: calc(100vh - 250px);
+  overflow: auto;
 }
 
 /* полоса прокрутки (скроллбар) */

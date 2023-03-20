@@ -17,6 +17,8 @@ import { getUserProfile } from '../../services/actions/user';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { IIngredientsAction } from '../../services/reducers/ingredients';
 import { IUserAction } from '../../services/reducers/user';
+import Feed from '../../pages/Feed/Feed';
+import OrderNumberInfo from '../OrderNumberInfo/OrderNumberInfo';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -36,6 +38,8 @@ const App = () => {
         <Route path='/ingredients/:id' element={<IngredientPage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/feed' element={<Feed />} />
+        <Route path='/feed/:id' element={<h1>/feed/:id page</h1>} />
         <Route
           path='/profile'
           element={
@@ -62,6 +66,14 @@ const App = () => {
             element={
               <Modal header='Детали ингредиента'>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path='/feed/:id'
+            element={
+              <Modal header='OrderNumber Modal'>
+                <OrderNumberInfo orderNumber={123} />
               </Modal>
             }
           />

@@ -62,6 +62,10 @@ const Profile = () => {
     setEmail(userEmail);
   };
 
+  const handleOrderProfileClick = () => {
+    navigate('/profile');
+  };
+
   const linkClassName = 'text text_type_main-medium mt-5 mb-5';
   const profileClassName = `${linkClassName} ${
     pathName === '/profile' ? '' : 'text_color_inactive'
@@ -78,7 +82,9 @@ const Profile = () => {
       <div className={styles.content_wrapper}>
         <div className={styles.blocks_container}>
           <div className={styles.menu_container}>
-            <p className={profileClassName}>Профиль</p>
+            <p className={profileClassName} onClick={handleOrderProfileClick}>
+              Профиль
+            </p>
             <p
               className={orderHistoryClassName}
               onClick={handleOrderHistoryClick}
@@ -122,7 +128,6 @@ const Profile = () => {
               </div>
             )}
           </form>
-          <div className={styles.menu_container} />
         </div>
       </div>
     </div>

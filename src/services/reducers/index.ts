@@ -4,6 +4,7 @@ import { orderReducer } from './order';
 import { constructorItemsReducer } from './constructorItems';
 import { ingredientDetailsReducer } from './ingredientDetails';
 import { userReducer } from './user';
+import { wsReducer } from './websocket';
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   order: orderReducer,
   ingredientDetails: ingredientDetailsReducer,
   user: userReducer,
+  ws: wsReducer,
 });
