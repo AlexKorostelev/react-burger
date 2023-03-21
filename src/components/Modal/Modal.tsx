@@ -9,7 +9,7 @@ const modalRoot = document.getElementById('react-modals');
 
 interface IModalProps {
   children: ReactElement;
-  header: string;
+  header?: string;
   onClose?: () => void;
 }
 
@@ -17,7 +17,7 @@ const Modal: FC<IModalProps> = ({ children, header, onClose }) => {
   const navigate = useNavigate();
 
   const onCloseHandler = useCallback(() => {
-    onClose ? onClose() : navigate('/');
+    onClose ? onClose() : navigate(-1);
   }, [navigate, onClose]);
 
   const handleKeyDown = useCallback(

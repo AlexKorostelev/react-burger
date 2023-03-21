@@ -13,10 +13,10 @@ const Feed = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(wsConnectionStart(`${wssBaseApiUrl}/all`));
+    setTimeout(() => dispatch(wsConnectionStart(`${wssBaseApiUrl}/all`)), 500);
 
     return () => {
-      setTimeout(() => dispatch(wsConnectionClosed()), 500);
+      dispatch(wsConnectionClosed());
     };
   }, []);
 

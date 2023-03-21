@@ -2,9 +2,10 @@ import { FC } from 'react';
 import styles from './Order.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IOrderExt } from '../OrderTable/OrderTable';
-import moment from 'moment';
+
 import 'moment/locale/ru';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { formatOrderDate, getOrderStatus } from '../../utils/common';
 
 export interface IOrder {
   _id: string;
@@ -26,26 +27,19 @@ const Order: FC<IOrderExt> = ({
   status,
 }) => {
   const navigate = useNavigate();
-  moment.locale('ru');
-  const orderTime = moment(createdAt);
-  const orderTimeString = `${orderTime.fromNow()}, ${orderTime.format(
-    'HH:mm'
-  )}`;
+  const location = useLocation();
+
+  const orderTimeString = formatOrderDate(createdAt);
   const remainIngredientsCount = pictures.length - 6;
 
-  const getStatus = (status: string) => {
-    switch (status) {
-      case 'created':
-        return 'Создан';
-      case 'pending':
-        return 'В процессе';
-      case 'done':
-        return 'Готов';
-    }
-  };
-
   const handleClickOrderContainer = () => {
-    navigate(`/feed/${number}`, { state: { background: true } });
+    if (isShowStatus) {
+      navigate(`/profile/orders/${number}`, {
+        state: { background: location },
+      });
+    } else {
+      navigate(`/feed/${number}`, { state: { background: location } });
+    }
   };
 
   return (
@@ -65,7 +59,7 @@ const Order: FC<IOrderExt> = ({
         </p>
         {isShowStatus && (
           <p className='text text_type_main-default pt-1'>
-            {getStatus(status)}
+            {getOrderStatus(status)}
           </p>
         )}
       </div>

@@ -19,6 +19,8 @@ import { IIngredientsAction } from '../../services/reducers/ingredients';
 import { IUserAction } from '../../services/reducers/user';
 import Feed from '../../pages/Feed/Feed';
 import OrderNumberInfo from '../OrderNumberInfo/OrderNumberInfo';
+import FeedIdPage from '../../pages/FeedIdPage/FeedIdPage';
+import OrderIdPage from '../../pages/OrderIdPage/OrderIdPage';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -39,7 +41,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/feed' element={<Feed />} />
-        <Route path='/feed/:id' element={<h1>/feed/:id page</h1>} />
+        <Route path='/feed/:id' element={<FeedIdPage />} />
         <Route
           path='/profile'
           element={
@@ -53,6 +55,14 @@ const App = () => {
           element={
             <RequiredAuth redirectTo={'/login'}>
               <Orders />
+            </RequiredAuth>
+          }
+        />
+        <Route
+          path='/profile/orders/:id'
+          element={
+            <RequiredAuth redirectTo={'/login'}>
+              <OrderIdPage />
             </RequiredAuth>
           }
         />
@@ -72,8 +82,16 @@ const App = () => {
           <Route
             path='/feed/:id'
             element={
-              <Modal header='OrderNumber Modal'>
-                <OrderNumberInfo orderNumber={123} />
+              <Modal>
+                <OrderNumberInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:id'
+            element={
+              <Modal>
+                <OrderNumberInfo />
               </Modal>
             }
           />

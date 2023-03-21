@@ -27,7 +27,7 @@ const Orders = () => {
     );
 
     return () => {
-      setTimeout(() => dispatch(wsConnectionClosed()), 500);
+      dispatch(wsConnectionClosed());
     };
   }, []);
 

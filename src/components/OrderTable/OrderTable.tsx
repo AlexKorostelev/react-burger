@@ -23,18 +23,20 @@ const OrderTable: FC<IOrderTableProps> = ({ isShowStatus }) => {
 
   const ordersExt: IOrderExt[] = useMemo(() => {
     return (
-      orders.map((item) => ({
-        ...item,
-        price: item.ingredients.reduce(
-          (acc, cur) =>
-            (ingredients.find((ingredient) => ingredient._id === cur)?.price ||
-              0) + acc,
-          0
-        ),
-        pictures: item.ingredients.map(
-          (i) => ingredients.find((j) => j._id === i)?.image_mobile || ''
-        ),
-      })) || []
+      orders
+        .map((item) => ({
+          ...item,
+          price: item.ingredients.reduce(
+            (acc, cur) =>
+              (ingredients.find((ingredient) => ingredient._id === cur)
+                ?.price || 0) + acc,
+            0
+          ),
+          pictures: item.ingredients.map(
+            (i) => ingredients.find((j) => j._id === i)?.image_mobile || ''
+          ),
+        }))
+        .reverse() || []
     );
   }, [orders]);
 
