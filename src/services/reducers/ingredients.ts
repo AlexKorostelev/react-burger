@@ -14,8 +14,7 @@ export interface IIngredientWithCount extends IIngredient {
 
 export interface IIngredientsAction {
   type?: TIngredientsActionType;
-  ingredients?: IIngredientWithCount[];
-  id?: string;
+  payload?: IIngredientWithCount[] | string;
 }
 
 interface IInitialState {
@@ -44,7 +43,7 @@ export const ingredientsReducer = (
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        ingredients: action.ingredients,
+        ingredients: action.payload,
         ingredientsFailed: false,
         ingredientsRequest: false,
       };
@@ -57,7 +56,7 @@ export const ingredientsReducer = (
     }
     case INCREASE_INGREDIENT_COUNT: {
       const foundIngredient = state.ingredients.find(
-        (item) => item._id === action.id
+        (item) => item._id === action.payload
       );
       const newIngredientType = (foundIngredient && foundIngredient.type) || '';
 
@@ -68,7 +67,7 @@ export const ingredientsReducer = (
             ? {
                 ...item,
                 count:
-                  item._id === action.id
+                  item._id === action.payload
                     ? 1
                     : item.type === 'bun'
                     ? 0
@@ -76,7 +75,8 @@ export const ingredientsReducer = (
               }
             : {
                 ...item,
-                count: item._id === action.id ? item.count + 1 : item.count,
+                count:
+                  item._id === action.payload ? item.count + 1 : item.count,
               };
         }),
       };
@@ -87,7 +87,7 @@ export const ingredientsReducer = (
         ingredients: state.ingredients.map((item) => {
           return {
             ...item,
-            count: item._id === action.id ? item.count - 1 : item.count,
+            count: item._id === action.payload ? item.count - 1 : item.count,
           };
         }),
       };

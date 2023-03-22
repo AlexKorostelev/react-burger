@@ -12,10 +12,10 @@ interface IIngredientWithId extends IIngredient {
 
 export interface IConstructorItemsAction {
   type: TConstructorItemsActionType;
-  ingredient?: IIngredientWithId;
-  id?: string;
-  prevId?: string;
-  nextId?: string;
+  payload?: { ingredient: IIngredientWithId; id: string } & string & {
+      prevId: string;
+      nextId: string;
+    };
 }
 
 const initialState = [
@@ -29,44 +29,49 @@ export const constructorItemsReducer = (
 ) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
-      if (action.ingredient && action.ingredient.type === 'bun') {
+      if (
+        action.payload?.ingredient &&
+        action.payload.ingredient.type === 'bun'
+      ) {
         const isBunWithSameIdExist = !!state.find(
-          (item) => item._id === (action.ingredient && action.ingredient._id)
+          (item) =>
+            item._id ===
+            (action.payload?.ingredient && action.payload.ingredient._id)
         );
 
         return [
           {
-            ...action.ingredient,
-            id: isBunWithSameIdExist ? state[0].id : action.id + '_up',
+            ...action.payload.ingredient,
+            id: isBunWithSameIdExist ? state[0].id : action.payload.id + '_up',
           },
           ...state.slice(1, state.length - 1),
           {
-            ...action.ingredient,
+            ...action.payload.ingredient,
             id: isBunWithSameIdExist
               ? state[state.length - 1].id
-              : action.id + '_down',
+              : action.payload.id + '_down',
           },
         ];
       }
 
       return [
         ...state.slice(0, state.length - 1),
-        { ...action.ingredient, id: action.id },
+        { ...action.payload?.ingredient, id: action.payload?.id },
         ...state.slice(-1),
       ];
     }
     case REMOVE_INGREDIENT: {
-      return state.filter((item) => item.id !== action.id);
+      return state.filter((item) => item.id !== action.payload);
     }
     case MOVE_INGREDIENT: {
-      const prevItem = state.find((item) => item.id === action.prevId);
-      const nextItem = state.find((item) => item.id === action.nextId);
+      const prevItem = state.find((item) => item.id === action.payload?.prevId);
+      const nextItem = state.find((item) => item.id === action.payload?.nextId);
 
       return state.map((item) => {
         switch (item.id) {
-          case action.prevId:
+          case action.payload?.prevId:
             return nextItem;
-          case action.nextId:
+          case action.payload?.nextId:
             return prevItem;
           default:
             return item;

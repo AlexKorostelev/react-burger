@@ -7,6 +7,6 @@ export const setIngredientDetails =
   (ingredient: IIngredientWithCount) => (dispatch: TAppDispatch) => {
     dispatch({
       type: SET_INGREDIENTS_DETAILS,
-      ingredientDetails: ingredient,
+      payload: ingredient,
     });
   };

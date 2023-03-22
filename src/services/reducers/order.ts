@@ -13,7 +13,7 @@ const initialState = {
 
 export interface IOrderAction {
   type: TOrderActionType;
-  orderNumber?: number;
+  payload?: number;
 }
 
 export const orderReducer = (state = initialState, action: IOrderAction) => {
@@ -28,7 +28,7 @@ export const orderReducer = (state = initialState, action: IOrderAction) => {
     case SEND_ORDER_SUCCESS: {
       return {
         ...state,
-        orderNumber: action.orderNumber,
+        orderNumber: action.payload,
         orderFailed: false,
         orderRequest: false,
       };

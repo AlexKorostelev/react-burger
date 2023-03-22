@@ -3,8 +3,8 @@ import OrderTable from '../../components/OrderTable/OrderTable';
 import StatusOrder from '../../components/StatusOrder/StatusOrder';
 import { useEffect } from 'react';
 import {
-  wsConnectionClosed,
-  wsConnectionStart,
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
 } from '../../services/actions/websocket';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { wssBaseApiUrl } from '../../utils/burger-api';
@@ -13,10 +13,17 @@ const Feed = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setTimeout(() => dispatch(wsConnectionStart(`${wssBaseApiUrl}/all`)), 500);
+    setTimeout(
+      () =>
+        dispatch({
+          type: WS_CONNECTION_START,
+          payload: `${wssBaseApiUrl}/all`,
+        }),
+      500
+    );
 
     return () => {
-      dispatch(wsConnectionClosed());
+      dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, []);
 

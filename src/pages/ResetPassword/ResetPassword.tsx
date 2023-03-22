@@ -8,7 +8,6 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputPassword from '../../components/common/InputPassword';
 import { resetUserPasswordWithCode } from '../../services/actions/user';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
-import { IUserAction } from '../../services/reducers/user';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
@@ -34,7 +33,7 @@ const ResetPassword = () => {
     event.preventDefault();
     (
       dispatch(
-        resetUserPasswordWithCode(password, code) as unknown as IUserAction
+        resetUserPasswordWithCode(password, code)
       ) as unknown as Promise<string>
     ).then(() => navigate('/'));
   };

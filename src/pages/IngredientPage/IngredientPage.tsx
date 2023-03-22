@@ -9,7 +9,6 @@ import {
   selectIngredients,
 } from '../../utils/selectors';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
-import { IOrderAction } from '../../services/reducers/order';
 
 export interface IIngredient {
   calories: number;
@@ -37,7 +36,7 @@ const IngredientPage = () => {
       const ingredient = ingredients.find(
         (item: IIngredient) => item._id === id
       );
-      dispatch(setIngredientDetails(ingredient) as unknown as IOrderAction);
+      dispatch(setIngredientDetails(ingredient));
     }
   }, [dispatch, id, ingredients]);
 

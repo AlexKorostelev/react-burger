@@ -15,8 +15,6 @@ import IngredientPage from '../../pages/IngredientPage/IngredientPage';
 import { getBurgerIngredients } from '../../services/actions/ingredients';
 import { getUserProfile } from '../../services/actions/user';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
-import { IIngredientsAction } from '../../services/reducers/ingredients';
-import { IUserAction } from '../../services/reducers/user';
 import Feed from '../../pages/Feed/Feed';
 import OrderNumberInfo from '../OrderNumberInfo/OrderNumberInfo';
 import FeedIdPage from '../../pages/FeedIdPage/FeedIdPage';
@@ -28,8 +26,8 @@ const App = () => {
   const background = location.state && location.state.background;
 
   useEffect(() => {
-    dispatch(getBurgerIngredients() as unknown as IIngredientsAction);
-    dispatch(getUserProfile() as unknown as IUserAction);
+    dispatch(getBurgerIngredients());
+    dispatch(getUserProfile());
   }, [dispatch]);
 
   return (

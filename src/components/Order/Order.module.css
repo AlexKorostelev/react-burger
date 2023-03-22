@@ -9,6 +9,7 @@
   margin-bottom: 24px;
   padding: 24px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .order_number_container {

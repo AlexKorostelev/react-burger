@@ -3,11 +3,10 @@ import OrderTable from '../../components/OrderTable/OrderTable';
 import { logoutUser } from '../../services/actions/user';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
-import { IUserAction } from '../../services/reducers/user';
 import { useEffect } from 'react';
 import {
-  wsConnectionClosed,
-  wsConnectionStart,
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
 } from '../../services/actions/websocket';
 import { wssBaseApiUrl } from '../../utils/burger-api';
 import { getCookie } from '../../utils/cookie';
@@ -18,25 +17,22 @@ const Orders = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(
-      wsConnectionStart(
-        `${wssBaseApiUrl}?token=${
-          getCookie('accessToken')?.split(' ')[1] || ''
-        }`
-      )
-    );
+    dispatch({
+      type: WS_CONNECTION_START,
+      payload: `${wssBaseApiUrl}?token=${
+        getCookie('accessToken')?.split(' ')[1] || ''
+      }`,
+    });
 
     return () => {
-      dispatch(wsConnectionClosed());
+      dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, []);
 
   const handleUserLogoutClick = () => {
-    (
-      dispatch(
-        logoutUser() as unknown as IUserAction
-      ) as unknown as Promise<string>
-    ).then(() => navigate('/'));
+    (dispatch(logoutUser()) as unknown as Promise<string>).then(() =>
+      navigate('/')
+    );
   };
 
   const handleOrderHistoryClick = () => {

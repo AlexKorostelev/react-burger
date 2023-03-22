@@ -6,7 +6,6 @@ import InputEmail from '../../components/common/InputEmail';
 import { resetUserPassword } from '../../services/actions/user';
 import { useAppSelector } from '../../services/hooks/useAppSelector';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
-import { IUserAction } from '../../services/reducers/user';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -26,13 +25,11 @@ const ForgotPassword = () => {
   const handleClickButtonRepair = (event: FormEvent) => {
     event.preventDefault();
     email &&
-      (
-        dispatch(
-          resetUserPassword(email) as unknown as IUserAction
-        ) as unknown as Promise<string>
-      ).then(() => {
-        navigate('/reset-password', { state: { from: '/forgot-password' } });
-      });
+      (dispatch(resetUserPassword(email)) as unknown as Promise<string>).then(
+        () => {
+          navigate('/reset-password', { state: { from: '/forgot-password' } });
+        }
+      );
   };
 
   return (

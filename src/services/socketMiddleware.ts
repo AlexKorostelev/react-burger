@@ -1,10 +1,8 @@
-import type { Middleware, MiddlewareAPI } from 'redux';
-import { AppDispatch, RootState } from './store';
-import { wsGetMessage } from './actions/websocket';
-import { IWebsocket } from './reducers/websocket';
+import type { Middleware } from 'redux';
+import { WS_GET_MESSAGE } from './actions/websocket';
 
 export const socketMiddleware = (): Middleware => {
-  return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
+  return ((store) => {
     let socket: WebSocket | null = null;
 
     return (next) => (action) => {
@@ -28,7 +26,10 @@ export const socketMiddleware = (): Middleware => {
 
         // функция, которая вызывается при получения события от сервера
         socket.onmessage = (event) => {
-          dispatch(wsGetMessage(event.data) as unknown as IWebsocket);
+          dispatch({
+            type: WS_GET_MESSAGE,
+            payload: JSON.parse(event.data),
+          });
         };
 
         // функция, которая вызывается при закрытии соединения

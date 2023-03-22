@@ -20,12 +20,12 @@ const initialState = {
   data: undefined,
 };
 
-export interface IWebsocket {
+export interface IWebsocketAction {
   type: TWsActionType;
   payload?: IOrderData;
 }
 
-export const wsReducer = (state = initialState, action: IWebsocket) => {
+export const wsReducer = (state = initialState, action: IWebsocketAction) => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {

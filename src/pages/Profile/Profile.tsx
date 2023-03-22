@@ -12,7 +12,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { useAppSelector } from '../../services/hooks/useAppSelector';
-import { IUserAction } from '../../services/reducers/user';
 
 const Profile = () => {
   const [name, setName] = useState('');
@@ -37,16 +36,14 @@ const Profile = () => {
   }, [userEmail]);
 
   useEffect(() => {
-    dispatch(getUserProfile() as unknown as IUserAction);
+    dispatch(getUserProfile());
     nameInputRef && nameInputRef.current && nameInputRef.current.focus();
   }, [dispatch]);
 
   const handleUserLogoutClick = () => {
-    (
-      dispatch(
-        logoutUser() as unknown as IUserAction
-      ) as unknown as Promise<string>
-    ).then(() => navigate('/'));
+    (dispatch(logoutUser()) as unknown as Promise<string>).then(() =>
+      navigate('/')
+    );
   };
 
   const handleOrderHistoryClick = () => {
@@ -54,7 +51,7 @@ const Profile = () => {
   };
 
   const handleButtonSaveClick = () => {
-    dispatch(updateUserProfile(name, email) as unknown as IUserAction);
+    dispatch(updateUserProfile(name, email));
   };
 
   const handleButtonCancelClick = () => {

@@ -14,15 +14,14 @@ export const addIngredient =
   (ingredient: IIngredient) => (dispatch: TAppDispatch) => {
     dispatch({
       type: ADD_INGREDIENT,
-      ingredient,
-      id: nanoid(),
+      payload: { ingredient, id: nanoid() },
     });
   };
 
 export const removeIngredient = (id: string) => (dispatch: TAppDispatch) => {
   dispatch({
     type: REMOVE_INGREDIENT,
-    id,
+    payload: id,
   });
 };
 
@@ -30,7 +29,6 @@ export const moveIngredient =
   (prevId: string, nextId: string) => (dispatch: TAppDispatch) => {
     dispatch({
       type: MOVE_INGREDIENT,
-      prevId,
-      nextId,
+      payload: { prevId, nextId },
     });
   };

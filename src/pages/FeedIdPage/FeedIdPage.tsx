@@ -3,8 +3,8 @@ import OrderNumberInfo from '../../components/OrderNumberInfo/OrderNumberInfo';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { useEffect } from 'react';
 import {
-  wsConnectionClosed,
-  wsConnectionStart,
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_START,
 } from '../../services/actions/websocket';
 import { wssBaseApiUrl } from '../../utils/burger-api';
 import { useAppSelector } from '../../services/hooks/useAppSelector';
@@ -15,10 +15,14 @@ const FeedIdPage = () => {
   const wsConnected = useAppSelector(selectWsConnectionStatus);
 
   useEffect(() => {
-    wsConnected !== true && dispatch(wsConnectionStart(`${wssBaseApiUrl}/all`));
+    wsConnected !== true &&
+      dispatch({
+        type: WS_CONNECTION_START,
+        payload: `${wssBaseApiUrl}/all`,
+      });
 
     return () => {
-      dispatch(wsConnectionClosed());
+      dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, []);
 

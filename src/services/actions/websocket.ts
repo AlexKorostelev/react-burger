@@ -53,10 +53,3 @@ export const wsSendMessage = (message: string) => {
     payload: message,
   };
 };
-
-// export const wsUserNameUpdate = (userName: string) => {
-//   return {
-//     type: WS_USER_NAME_UPDATE,
-//     payload: userName,
-//   };
-// };
