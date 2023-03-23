@@ -40,10 +40,8 @@ const Profile = () => {
     nameInputRef && nameInputRef.current && nameInputRef.current.focus();
   }, [dispatch]);
 
-  const handleUserLogoutClick = () => {
-    (dispatch(logoutUser()) as unknown as Promise<string>).then(() =>
-      navigate('/')
-    );
+  const handleUserLogoutClick = async () => {
+    await dispatch(logoutUser(() => navigate('/')));
   };
 
   const handleOrderHistoryClick = () => {

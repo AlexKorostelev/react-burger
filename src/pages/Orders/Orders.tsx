@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { useEffect } from 'react';
 import {
   WS_CONNECTION_CLOSED,
-  WS_CONNECTION_START,
+  wsConnectionStart,
 } from '../../services/actions/websocket';
 import { wssBaseApiUrl } from '../../utils/burger-api';
 import { getCookie } from '../../utils/cookie';
@@ -17,22 +17,21 @@ const Orders = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch({
-      type: WS_CONNECTION_START,
-      payload: `${wssBaseApiUrl}?token=${
-        getCookie('accessToken')?.split(' ')[1] || ''
-      }`,
-    });
+    dispatch(
+      wsConnectionStart(
+        `${wssBaseApiUrl}?token=${
+          getCookie('accessToken')?.split(' ')[1] || ''
+        }`
+      )
+    );
 
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, []);
 
-  const handleUserLogoutClick = () => {
-    (dispatch(logoutUser()) as unknown as Promise<string>).then(() =>
-      navigate('/')
-    );
+  const handleUserLogoutClick = async () => {
+    await dispatch(logoutUser(() => navigate('/')));
   };
 
   const handleOrderHistoryClick = () => {

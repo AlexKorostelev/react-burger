@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { useEffect } from 'react';
 import {
   WS_CONNECTION_CLOSED,
-  WS_CONNECTION_START,
+  wsConnectionStart,
 } from '../../services/actions/websocket';
 import { wssBaseApiUrl } from '../../utils/burger-api';
 import { useAppSelector } from '../../services/hooks/useAppSelector';
@@ -15,11 +15,7 @@ const OrderIdPage = () => {
   const wsConnected = useAppSelector(selectWsConnectionStatus);
 
   useEffect(() => {
-    wsConnected !== true &&
-      dispatch({
-        type: WS_CONNECTION_START,
-        payload: `${wssBaseApiUrl}/all`,
-      });
+    wsConnected !== true && dispatch(wsConnectionStart(`${wssBaseApiUrl}/all`));
 
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });

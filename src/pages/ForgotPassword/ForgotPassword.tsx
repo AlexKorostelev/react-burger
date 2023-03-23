@@ -25,10 +25,10 @@ const ForgotPassword = () => {
   const handleClickButtonRepair = (event: FormEvent) => {
     event.preventDefault();
     email &&
-      (dispatch(resetUserPassword(email)) as unknown as Promise<string>).then(
-        () => {
-          navigate('/reset-password', { state: { from: '/forgot-password' } });
-        }
+      dispatch(
+        resetUserPassword(email, () =>
+          navigate('/reset-password', { state: { from: '/forgot-password' } })
+        )
       );
   };
 

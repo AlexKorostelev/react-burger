@@ -1,3 +1,5 @@
+import { AppActions } from '../store';
+
 export const WS_CONNECTION_START = 'WS_CONNECTION_START';
 export const WS_CONNECTION_SUCCESS = 'WS_CONNECTION_SUCCESS';
 export const WS_CONNECTION_ERROR = 'WS_CONNECTION_ERROR';
@@ -15,28 +17,10 @@ export type TWsActionType =
   | typeof WS_SEND_MESSAGE
   | typeof WS_USER_NAME_UPDATE;
 
-export const wsConnectionStart = (url: string) => {
+export const wsConnectionStart = (url: string): AppActions => {
   return {
     type: WS_CONNECTION_START,
     payload: url,
-  };
-};
-
-export const wsConnectionSuccess = () => {
-  return {
-    type: WS_CONNECTION_SUCCESS,
-  };
-};
-
-export const wsConnectionError = () => {
-  return {
-    type: WS_CONNECTION_ERROR,
-  };
-};
-
-export const wsConnectionClosed = () => {
-  return {
-    type: WS_CONNECTION_CLOSED,
   };
 };
 
@@ -44,12 +28,5 @@ export const wsGetMessage = (message: string) => {
   return {
     type: WS_GET_MESSAGE,
     payload: JSON.parse(message),
-  };
-};
-
-export const wsSendMessage = (message: string) => {
-  return {
-    type: WS_SEND_MESSAGE,
-    payload: message,
   };
 };

@@ -22,22 +22,21 @@ const OrderTable: FC<IOrderTableProps> = ({ isShowStatus }) => {
     useSelector(selectIngredients).ingredients || [];
 
   const ordersExt: IOrderExt[] = useMemo(() => {
-    return (
-      orders
-        .map((item) => ({
-          ...item,
-          price: item.ingredients.reduce(
-            (acc, cur) =>
-              (ingredients.find((ingredient) => ingredient._id === cur)
-                ?.price || 0) + acc,
-            0
-          ),
-          pictures: item.ingredients.map(
-            (i) => ingredients.find((j) => j._id === i)?.image_mobile || ''
-          ),
-        }))
-        .reverse() || []
-    );
+    const result =
+      orders.map((item) => ({
+        ...item,
+        price: item.ingredients.reduce(
+          (acc, cur) =>
+            (ingredients.find((ingredient) => ingredient._id === cur)?.price ||
+              0) + acc,
+          0
+        ),
+        pictures: item.ingredients.map(
+          (i) => ingredients.find((j) => j._id === i)?.image_mobile || ''
+        ),
+      })) || [];
+
+    return isShowStatus ? result.reverse() : result;
   }, [orders]);
 
   return (

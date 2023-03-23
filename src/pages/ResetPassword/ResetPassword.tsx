@@ -31,11 +31,7 @@ const ResetPassword = () => {
 
   const handleButtonSavePassword = (event: FormEvent) => {
     event.preventDefault();
-    (
-      dispatch(
-        resetUserPasswordWithCode(password, code)
-      ) as unknown as Promise<string>
-    ).then(() => navigate('/'));
+    dispatch(resetUserPasswordWithCode(password, code, () => navigate('/')));
   };
 
   return (

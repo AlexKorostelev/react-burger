@@ -4,7 +4,7 @@ import StatusOrder from '../../components/StatusOrder/StatusOrder';
 import { useEffect } from 'react';
 import {
   WS_CONNECTION_CLOSED,
-  WS_CONNECTION_START,
+  wsConnectionStart,
 } from '../../services/actions/websocket';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { wssBaseApiUrl } from '../../utils/burger-api';
@@ -13,14 +13,7 @@ const Feed = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setTimeout(
-      () =>
-        dispatch({
-          type: WS_CONNECTION_START,
-          payload: `${wssBaseApiUrl}/all`,
-        }),
-      500
-    );
+    setTimeout(() => dispatch(wsConnectionStart(`${wssBaseApiUrl}/all`)), 500);
 
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });

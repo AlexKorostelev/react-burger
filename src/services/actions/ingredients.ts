@@ -1,6 +1,7 @@
 import { getIngredients } from '../../utils/burger-api';
 import { TAppDispatch } from '../hooks/useAppDispatch';
 import { IIngredient } from '../../pages/IngredientPage/IngredientPage';
+import { AppActions } from '../store';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
@@ -32,12 +33,12 @@ export const getBurgerIngredients = () => (dispatch: TAppDispatch) => {
     .catch(() => dispatch({ type: GET_INGREDIENTS_FAILED }));
 };
 
-export const increaseIngredientCount =
-  (id: string) => (dispatch: TAppDispatch) => {
-    dispatch({ type: INCREASE_INGREDIENT_COUNT, payload: id });
-  };
+export const increaseIngredientCount = (id: string): AppActions => ({
+  type: INCREASE_INGREDIENT_COUNT,
+  payload: id,
+});
 
-export const decreaseIngredientCount =
-  (id: string) => (dispatch: TAppDispatch) => {
-    dispatch({ type: DECREASE_INGREDIENT_COUNT, payload: id });
-  };
+export const decreaseIngredientCount = (id: string): AppActions => ({
+  type: DECREASE_INGREDIENT_COUNT,
+  payload: id,
+});

@@ -64,7 +64,8 @@ export const registerUser =
   };
 
 export const loginUser =
-  (email: string, password: string) => (dispatch: TAppDispatch) => {
+  (email: string, password: string, cb: () => void) =>
+  (dispatch: TAppDispatch) => {
     dispatch({ type: USER_REQUEST });
 
     return login(email, password)
@@ -73,13 +74,14 @@ export const loginUser =
         setCookie('refreshToken', data.refreshToken);
         dispatch({ type: USER_LOGIN_SUCCESS, payload: data.user });
       })
+      .then(() => cb())
       .catch(() => dispatch({ type: USER_LOGIN_FAILED }));
   };
 
-export const logoutUser = () => (dispatch: TAppDispatch) => {
+export const logoutUser = (cb: () => void) => (dispatch: TAppDispatch) => {
   dispatch({ type: USER_REQUEST });
 
-  return logout()
+  logout()
     .then(() => {
       deleteCookie('accessToken');
       deleteCookie('refreshToken');
@@ -87,6 +89,7 @@ export const logoutUser = () => (dispatch: TAppDispatch) => {
 
       return Promise.resolve();
     })
+    .then(() => cb())
     .catch(() => dispatch({ type: USER_LOGOUT_FAILED }));
 };
 
@@ -156,21 +159,24 @@ export const updateUserProfile =
   };
 
 export const resetUserPassword =
-  (email: string) => (dispatch: TAppDispatch) => {
+  (email: string, cb: () => void) => (dispatch: TAppDispatch) => {
     dispatch({ type: USER_REQUEST });
 
     return passwordReset(email)
       .then(() => dispatch({ type: USER_PASSWORD_RESET_SUCCESS }))
+      .then(() => cb())
       .catch(() => dispatch({ type: USER_PASSWORD_RESET_FAILED }));
   };
 
 export const resetUserPasswordWithCode =
-  (password: string, code: string) => (dispatch: TAppDispatch) => {
+  (password: string, code: string, cb: () => void) =>
+  (dispatch: TAppDispatch) => {
     dispatch({ type: USER_REQUEST });
 
     return passwordResetWithCode(password, code)
       .then((data) =>
         dispatch({ type: USER_PASSWORD_RESET_WITH_CODE_SUCCESS, payload: data })
       )
+      .then(() => cb())
       .catch(() => dispatch({ type: USER_PASSWORD_RESET_WITH_CODE_FAILED }));
   };

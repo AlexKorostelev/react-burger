@@ -21,9 +21,7 @@ const Login = () => {
 
   const handleUserLogin = (event: FormEvent) => {
     event.preventDefault();
-    (dispatch(loginUser(email, password)) as unknown as Promise<string>).then(
-      () => navigate(prevPage)
-    );
+    dispatch(loginUser(email, password, () => navigate(prevPage)));
   };
 
   useEffect(() => {
