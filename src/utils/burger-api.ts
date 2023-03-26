@@ -1,10 +1,12 @@
 import { IIngredient } from '../pages/IngredientPage/IngredientPage';
+import { getCookie } from './cookie';
 
 interface IIngredientsResponse {
   data: IIngredient[];
 }
 
 export const baseApiUrl = 'https://norma.nomoreparties.space/api';
+export const wssBaseApiUrl = 'wss://norma.nomoreparties.space/orders';
 
 export const checkResponse = <T>(res: {
   json: () => Promise<T>;
@@ -24,7 +26,10 @@ export const sendOrder = async (order: IIngredient[]) => {
 
   return fetch(`${baseApiUrl}/orders`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json;charset=utf-8' },
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: getCookie('accessToken') || '',
+    },
     body: JSON.stringify(orderData),
   }).then(checkResponse);
 };

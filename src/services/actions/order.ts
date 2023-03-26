@@ -18,7 +18,7 @@ export const sendBurgerOrder =
       .then((data) =>
         dispatch({
           type: SEND_ORDER_SUCCESS,
-          orderNumber: data.order.number,
+          payload: data.order.number,
         })
       )
       .catch(() => dispatch({ type: SEND_ORDER_FAILED }));

@@ -42,6 +42,7 @@ export type TUserActionType =
   | typeof USER_GET_PROFILE_SUCCESS
   | typeof USER_GET_PROFILE_FAILED
   | typeof USER_UPDATE_PROFILE_SUCCESS
+  | typeof USER_UPDATE_PROFILE_FAILED
   | typeof USER_REFRESH_TOKEN_FAILED
   | typeof USER_REFRESH_TOKEN_SUCCESS
   | typeof USER_PASSWORD_RESET_SUCCESS
@@ -57,35 +58,38 @@ export const registerUser =
       .then((data) => {
         setCookie('accessToken', data.accessToken);
         setCookie('refreshToken', data.refreshToken);
-        dispatch({ type: USER_REGISTER_SUCCESS, data });
+        dispatch({ type: USER_REGISTER_SUCCESS, payload: data.user });
       })
       .catch(() => dispatch({ type: USER_REGISTER_FAILED }));
   };
 
 export const loginUser =
-  (email: string, password: string) => (dispatch: TAppDispatch) => {
+  (email: string, password: string, cb: () => void) =>
+  (dispatch: TAppDispatch) => {
     dispatch({ type: USER_REQUEST });
 
     return login(email, password)
       .then((data) => {
         setCookie('accessToken', data.accessToken);
         setCookie('refreshToken', data.refreshToken);
-        dispatch({ type: USER_LOGIN_SUCCESS, data });
+        dispatch({ type: USER_LOGIN_SUCCESS, payload: data.user });
       })
+      .then(() => cb())
       .catch(() => dispatch({ type: USER_LOGIN_FAILED }));
   };
 
-export const logoutUser = () => (dispatch: TAppDispatch) => {
+export const logoutUser = (cb: () => void) => (dispatch: TAppDispatch) => {
   dispatch({ type: USER_REQUEST });
 
-  return logout()
-    .then((data) => {
+  logout()
+    .then(() => {
       deleteCookie('accessToken');
       deleteCookie('refreshToken');
-      dispatch({ type: USER_LOGOUT_SUCCESS, data });
+      dispatch({ type: USER_LOGOUT_SUCCESS });
 
       return Promise.resolve();
     })
+    .then(() => cb())
     .catch(() => dispatch({ type: USER_LOGOUT_FAILED }));
 };
 
@@ -93,7 +97,7 @@ export const getUserProfile = () => (dispatch: TAppDispatch) => {
   dispatch({ type: USER_REQUEST });
   getProfile()
     .then((data) => {
-      dispatch({ type: USER_GET_PROFILE_SUCCESS, data });
+      dispatch({ type: USER_GET_PROFILE_SUCCESS, payload: data.user });
     })
     .catch((e) => {
       if (e.message === 'jwt expired') {
@@ -106,7 +110,7 @@ export const getUserProfile = () => (dispatch: TAppDispatch) => {
           .then(() => {
             getProfile()
               .then((data) =>
-                dispatch({ type: USER_GET_PROFILE_SUCCESS, data })
+                dispatch({ type: USER_GET_PROFILE_SUCCESS, payload: data.user })
               )
               .catch(() => {
                 dispatch({ type: USER_GET_PROFILE_FAILED });
@@ -125,7 +129,7 @@ export const updateUserProfile =
     dispatch({ type: USER_REQUEST });
     updateProfile(name, email)
       .then((data) => {
-        dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, data });
+        dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data.user });
       })
       .catch((e) => {
         if (e.message === 'jwt expired') {
@@ -138,7 +142,10 @@ export const updateUserProfile =
             .then(() => {
               updateProfile(name, email)
                 .then((data) =>
-                  dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, data })
+                  dispatch({
+                    type: USER_UPDATE_PROFILE_SUCCESS,
+                    payload: data.user,
+                  })
                 )
                 .catch(() => {
                   dispatch({ type: USER_UPDATE_PROFILE_FAILED });
@@ -152,21 +159,24 @@ export const updateUserProfile =
   };
 
 export const resetUserPassword =
-  (email: string) => (dispatch: TAppDispatch) => {
+  (email: string, cb: () => void) => (dispatch: TAppDispatch) => {
     dispatch({ type: USER_REQUEST });
 
     return passwordReset(email)
-      .then((data) => dispatch({ type: USER_PASSWORD_RESET_SUCCESS, data }))
+      .then(() => dispatch({ type: USER_PASSWORD_RESET_SUCCESS }))
+      .then(() => cb())
       .catch(() => dispatch({ type: USER_PASSWORD_RESET_FAILED }));
   };
 
 export const resetUserPasswordWithCode =
-  (password: string, code: string) => (dispatch: TAppDispatch) => {
+  (password: string, code: string, cb: () => void) =>
+  (dispatch: TAppDispatch) => {
     dispatch({ type: USER_REQUEST });
 
     return passwordResetWithCode(password, code)
       .then((data) =>
-        dispatch({ type: USER_PASSWORD_RESET_WITH_CODE_SUCCESS, data })
+        dispatch({ type: USER_PASSWORD_RESET_WITH_CODE_SUCCESS, payload: data })
       )
+      .then(() => cb())
       .catch(() => dispatch({ type: USER_PASSWORD_RESET_WITH_CODE_FAILED }));
   };

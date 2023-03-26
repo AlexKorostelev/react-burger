@@ -7,7 +7,6 @@ import InputPassword from '../../components/common/InputPassword';
 import { loginUser } from '../../services/actions/user';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { useAppSelector } from '../../services/hooks/useAppSelector';
-import { IUserAction } from '../../services/reducers/user';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,11 +21,7 @@ const Login = () => {
 
   const handleUserLogin = (event: FormEvent) => {
     event.preventDefault();
-    (
-      dispatch(
-        loginUser(email, password) as unknown as IUserAction
-      ) as unknown as Promise<string>
-    ).then(() => navigate(prevPage));
+    dispatch(loginUser(email, password, () => navigate(prevPage)));
   };
 
   useEffect(() => {

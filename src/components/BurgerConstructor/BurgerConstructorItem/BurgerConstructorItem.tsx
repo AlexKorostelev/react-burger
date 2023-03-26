@@ -13,8 +13,6 @@ import {
 import { decreaseIngredientCount } from '../../../services/actions/ingredients';
 import { useDrag, useDrop } from 'react-dnd';
 import { useAppDispatch } from '../../../services/hooks/useAppDispatch';
-import { IConstructorItemsAction } from '../../../services/reducers/constructorItems';
-import { IIngredientsAction } from '../../../services/reducers/ingredients';
 
 interface IBurgerConstructorItemProps {
   id: string;
@@ -61,19 +59,14 @@ const BurgerConstructorItem: FC<IBurgerConstructorItemProps> = ({
       isHover: monitor.isOver(),
     }),
     drop(item) {
-      dispatch(
-        moveIngredient(
-          (item as IBurgerConstructorItemProps).id,
-          id
-        ) as unknown as IConstructorItemsAction
-      );
+      dispatch(moveIngredient((item as IBurgerConstructorItemProps).id, id));
     },
     canDrop: () => !isFirstItem && !isLastItem,
   });
 
   const handlerDeleteItem = () => {
-    dispatch(removeIngredient(id) as unknown as IConstructorItemsAction);
-    dispatch(decreaseIngredientCount(_id) as unknown as IIngredientsAction);
+    dispatch(removeIngredient(id));
+    dispatch(decreaseIngredientCount(_id));
   };
 
   const isShowBorder = isHover && !isFirstItem && !isLastItem;

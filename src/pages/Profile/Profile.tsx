@@ -12,7 +12,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { useAppSelector } from '../../services/hooks/useAppSelector';
-import { IUserAction } from '../../services/reducers/user';
 
 const Profile = () => {
   const [name, setName] = useState('');
@@ -37,16 +36,12 @@ const Profile = () => {
   }, [userEmail]);
 
   useEffect(() => {
-    dispatch(getUserProfile() as unknown as IUserAction);
+    dispatch(getUserProfile());
     nameInputRef && nameInputRef.current && nameInputRef.current.focus();
   }, [dispatch]);
 
-  const handleUserLogoutClick = () => {
-    (
-      dispatch(
-        logoutUser() as unknown as IUserAction
-      ) as unknown as Promise<string>
-    ).then(() => navigate('/'));
+  const handleUserLogoutClick = async () => {
+    await dispatch(logoutUser(() => navigate('/')));
   };
 
   const handleOrderHistoryClick = () => {
@@ -54,12 +49,16 @@ const Profile = () => {
   };
 
   const handleButtonSaveClick = () => {
-    dispatch(updateUserProfile(name, email) as unknown as IUserAction);
+    dispatch(updateUserProfile(name, email));
   };
 
   const handleButtonCancelClick = () => {
     setName(userName);
     setEmail(userEmail);
+  };
+
+  const handleOrderProfileClick = () => {
+    navigate('/profile');
   };
 
   const linkClassName = 'text text_type_main-medium mt-5 mb-5';
@@ -78,7 +77,9 @@ const Profile = () => {
       <div className={styles.content_wrapper}>
         <div className={styles.blocks_container}>
           <div className={styles.menu_container}>
-            <p className={profileClassName}>Профиль</p>
+            <p className={profileClassName} onClick={handleOrderProfileClick}>
+              Профиль
+            </p>
             <p
               className={orderHistoryClassName}
               onClick={handleOrderHistoryClick}
@@ -122,7 +123,6 @@ const Profile = () => {
               </div>
             )}
           </form>
-          <div className={styles.menu_container} />
         </div>
       </div>
     </div>

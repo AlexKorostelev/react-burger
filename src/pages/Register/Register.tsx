@@ -8,7 +8,6 @@ import InputName from '../../components/common/InputName';
 import { registerUser } from '../../services/actions/user';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { useAppSelector } from '../../services/hooks/useAppSelector';
-import { IUserAction } from '../../services/reducers/user';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -32,7 +31,7 @@ const Register = () => {
 
   const handleRegisterUser = (event: FormEvent) => {
     event.preventDefault();
-    dispatch(registerUser(name, email, password) as unknown as IUserAction);
+    dispatch(registerUser(name, email, password));
   };
 
   return (

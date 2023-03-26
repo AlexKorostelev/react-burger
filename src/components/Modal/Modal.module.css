@@ -8,6 +8,7 @@
   left: 0;
   top: 0;
   min-width: 720px;
+  z-index: 2000;
 }
 
 .modal_container {

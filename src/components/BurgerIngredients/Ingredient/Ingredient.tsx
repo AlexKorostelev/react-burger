@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../../services/hooks/useAppSelector';
 import { IIngredient } from '../../../pages/IngredientPage/IngredientPage';
 import { useAppDispatch } from '../../../services/hooks/useAppDispatch';
-import { IIngredientDetailsAction } from '../../../services/reducers/ingredientDetails';
 
 interface IIngredientProps {
   id: string;
@@ -27,9 +26,7 @@ const Ingredient: FC<IIngredientProps> = ({ id }) => {
   });
 
   const handlerIngredientClick = () => {
-    dispatch(
-      setIngredientDetails(ingredient) as unknown as IIngredientDetailsAction
-    );
+    dispatch(setIngredientDetails(ingredient));
     navigate(`/ingredients/${id}`, { state: { background: true } });
   };
 

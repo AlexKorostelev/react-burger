@@ -35,9 +35,7 @@ interface IUser {
 
 export interface IUserAction {
   type: TUserActionType;
-  data?: {
-    user: IUser;
-  };
+  payload?: IUser;
 }
 
 export const userReducer = (state = initialState, action: IUserAction) => {
@@ -51,7 +49,7 @@ export const userReducer = (state = initialState, action: IUserAction) => {
     case USER_REGISTER_SUCCESS: {
       return {
         ...state,
-        user: (action.data && action.data.user) || initialState.user,
+        user: action.payload || initialState.user,
         isRequestError: false,
         isRequestProcess: false,
         isAuthChecked: true,
@@ -73,7 +71,7 @@ export const userReducer = (state = initialState, action: IUserAction) => {
     case USER_UPDATE_PROFILE_SUCCESS: {
       return {
         ...state,
-        user: (action.data && action.data.user) || initialState.user,
+        user: action.payload || initialState.user,
         isRequestError: false,
         isRequestProcess: false,
         isAuthChecked: true,

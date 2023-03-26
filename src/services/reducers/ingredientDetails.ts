@@ -3,7 +3,7 @@ import { IIngredientWithCount } from './ingredients';
 
 export interface IIngredientDetailsAction {
   type: typeof SET_INGREDIENTS_DETAILS;
-  ingredientDetails: IIngredientWithCount;
+  payload: IIngredientWithCount;
 }
 
 export const ingredientDetailsReducer = (
@@ -14,7 +14,7 @@ export const ingredientDetailsReducer = (
     case SET_INGREDIENTS_DETAILS: {
       return {
         ...state,
-        ...action.ingredientDetails,
+        ...action.payload,
       };
     }
     default: {

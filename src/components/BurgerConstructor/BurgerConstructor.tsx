@@ -17,8 +17,6 @@ import Spinner from '../common/Spinner';
 import { useAppSelector } from '../../services/hooks/useAppSelector';
 import { useAppDispatch } from '../../services/hooks/useAppDispatch';
 import { IIngredient } from '../../pages/IngredientPage/IngredientPage';
-import { IConstructorItemsAction } from '../../services/reducers/constructorItems';
-import { IOrderAction } from '../../services/reducers/order';
 
 export interface IIngredientWithId extends IIngredient {
   id: string;
@@ -55,21 +53,15 @@ const BurgerConstructor = () => {
           item._id === (dragItem as IIngredientWithId).id
       );
       if (ingredient) {
-        dispatch(
-          addIngredient(ingredient) as unknown as IConstructorItemsAction
-        );
-        dispatch(
-          increaseIngredientCount(
-            ingredient._id
-          ) as unknown as IConstructorItemsAction
-        );
+        dispatch(addIngredient(ingredient));
+        dispatch(increaseIngredientCount(ingredient._id));
       }
     },
   });
 
   const onClickButtonOrder = () => {
     if (isAuthChecked) {
-      dispatch(sendBurgerOrder(constructorItems) as unknown as IOrderAction);
+      dispatch(sendBurgerOrder(constructorItems));
       setIsShowModal(true);
     } else {
       navigate('/login');
