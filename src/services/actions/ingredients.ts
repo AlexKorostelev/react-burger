@@ -20,7 +20,8 @@ export type TIngredientsActionType =
 
 export const getBurgerIngredients = () => (dispatch: TAppDispatch) => {
   dispatch({ type: GET_INGREDIENTS_REQUEST });
-  getIngredients()
+
+  return getIngredients()
     .then((data) =>
       dispatch({
         type: GET_INGREDIENTS_SUCCESS,
