@@ -11,4 +11,4 @@
 
 ### `npm start`
 
-Приложение доступно по ссылке [http://localhost:3000](http://localhost:3000)
+Приложение доступно по ссылке [https://alexkorostelev.github.io/react-burger/](https://alexkorostelev.github.io/react-burger/)
