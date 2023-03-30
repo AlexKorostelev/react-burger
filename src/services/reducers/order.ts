@@ -5,14 +5,14 @@ import {
   TOrderActionType,
 } from '../actions/order';
 
-const initialState = {
+export const initialState = {
   orderRequest: false,
   orderFailed: false,
   orderNumber: 0,
 };
 
 export interface IOrderAction {
-  type: TOrderActionType;
+  type?: TOrderActionType;
   payload?: number;
 }
 

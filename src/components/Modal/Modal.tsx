@@ -35,7 +35,7 @@ const Modal: FC<IModalProps> = ({ children, header, onClose }) => {
 
   return modalRoot !== null
     ? createPortal(
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} data-cy='modal-wrapper'>
           <div
             className={styles.modal_container}
             onClick={(e) => e.stopPropagation()}

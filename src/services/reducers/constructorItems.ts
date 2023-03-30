@@ -11,14 +11,14 @@ interface IIngredientWithId extends IIngredient {
 }
 
 export interface IConstructorItemsAction {
-  type: TConstructorItemsActionType;
+  type?: TConstructorItemsActionType;
   payload?: { ingredient: IIngredientWithId; id: string } & string & {
       prevId: string;
       nextId: string;
     };
 }
 
-const initialState = [
+export const initialState = [
   { price: 0, id: '1', _id: '1' },
   { price: 0, id: '2', _id: '2' },
 ];

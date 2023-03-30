@@ -18,7 +18,7 @@ import {
   TUserActionType,
 } from '../actions/user';
 
-const initialState = {
+export const initialState = {
   isAuthChecked: false,
   user: {
     email: '',
@@ -34,7 +34,7 @@ interface IUser {
 }
 
 export interface IUserAction {
-  type: TUserActionType;
+  type?: TUserActionType;
   payload?: IUser;
 }
 

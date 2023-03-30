@@ -81,7 +81,7 @@ export const loginUser =
 export const logoutUser = (cb: () => void) => (dispatch: TAppDispatch) => {
   dispatch({ type: USER_REQUEST });
 
-  logout()
+  return logout()
     .then(() => {
       deleteCookie('accessToken');
       deleteCookie('refreshToken');
@@ -89,13 +89,14 @@ export const logoutUser = (cb: () => void) => (dispatch: TAppDispatch) => {
 
       return Promise.resolve();
     })
-    .then(() => cb())
+    .then(() => cb && cb())
     .catch(() => dispatch({ type: USER_LOGOUT_FAILED }));
 };
 
 export const getUserProfile = () => (dispatch: TAppDispatch) => {
   dispatch({ type: USER_REQUEST });
-  getProfile()
+
+  return getProfile()
     .then((data) => {
       dispatch({ type: USER_GET_PROFILE_SUCCESS, payload: data.user });
     })

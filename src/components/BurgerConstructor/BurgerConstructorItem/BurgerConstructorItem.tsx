@@ -105,7 +105,12 @@ const BurgerConstructorItem: FC<IBurgerConstructorItemProps> = ({
                 {isFirstOrLastItem ? (
                   <LockIcon type='secondary' />
                 ) : (
-                  <DeleteIcon type='primary' onClick={handlerDeleteItem} />
+                  <div
+                    data-cy='remove_ingredient_icon'
+                    style={{ display: 'flex' }}
+                  >
+                    <DeleteIcon type='primary' onClick={handlerDeleteItem} />
+                  </div>
                 )}
               </div>
             </div>

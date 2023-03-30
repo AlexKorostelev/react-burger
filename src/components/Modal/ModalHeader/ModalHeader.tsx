@@ -15,7 +15,11 @@ const ModalHeader: FC<IModalHeaderProps> = ({ header, onClose }) => {
     >
       <div className={styles.container}>
         <span className={'text text_type_main-large'}>{header || ''}</span>
-        <div className={styles.icon_container} onClick={onClose}>
+        <div
+          className={styles.icon_container}
+          onClick={onClose}
+          data-cy='modal_close_icon'
+        >
           <CloseIcon type='primary' />
         </div>
       </div>
