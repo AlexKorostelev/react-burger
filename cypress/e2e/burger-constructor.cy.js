@@ -50,7 +50,7 @@ describe("template spec", () => {
   });
 
   it("should remove ingredient from constructor", function () {
-    cy.visit("http://localhost:3000/login");
+    cy.visit("http://localhost:3000#/login");
 
     cy.get(":nth-child(2) > .input > .input__textfield").type("alex1@alex.ru");
     cy.get(":nth-child(3) > .input > .input__textfield").type("1234");
