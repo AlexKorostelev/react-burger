@@ -14,7 +14,8 @@ export type TOrderActionType =
 export const sendBurgerOrder =
   (order: IIngredient[]) => (dispatch: TAppDispatch) => {
     dispatch({ type: SEND_ORDER_REQUEST });
-    sendOrder(order)
+
+    return sendOrder(order)
       .then((data) =>
         dispatch({
           type: SEND_ORDER_SUCCESS,

@@ -2,8 +2,8 @@ import { SET_INGREDIENTS_DETAILS } from '../actions/ingredientDetails';
 import { IIngredientWithCount } from './ingredients';
 
 export interface IIngredientDetailsAction {
-  type: typeof SET_INGREDIENTS_DETAILS;
-  payload: IIngredientWithCount;
+  type?: typeof SET_INGREDIENTS_DETAILS;
+  payload?: IIngredientWithCount;
 }
 
 export const ingredientDetailsReducer = (

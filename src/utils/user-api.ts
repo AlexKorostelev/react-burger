@@ -1,7 +1,7 @@
 import { baseApiUrl, checkResponse } from './burger-api';
 import { getCookie } from './cookie';
 
-const authApiUrl = 'https://norma.nomoreparties.space/api/auth';
+export const authApiUrl = 'https://norma.nomoreparties.space/api/auth';
 
 export const register = async (
   name: string,

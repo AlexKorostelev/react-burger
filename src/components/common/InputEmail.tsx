@@ -18,6 +18,7 @@ const InputEmail = forwardRef<HTMLInputElement, IInputEmailProps>(
         error={false}
         errorText={'Заполните поле'}
         extraClass='mt-6'
+        data-cy='input-email'
       />
     );
   }

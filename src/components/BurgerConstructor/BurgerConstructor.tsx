@@ -99,6 +99,7 @@ const BurgerConstructor = () => {
         className={styles.items_container}
         style={itemsContainerStyle}
         ref={dropTarget}
+        data-cy='constructor-container'
       >
         {constructorItemsList}
       </div>

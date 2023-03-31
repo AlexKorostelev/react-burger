@@ -23,7 +23,7 @@ interface IInitialState {
   ingredientsFailed: boolean;
 }
 
-const initialState: IInitialState = {
+export const initialState: IInitialState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
