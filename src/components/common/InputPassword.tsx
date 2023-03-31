@@ -32,6 +32,7 @@ const InputPassword = forwardRef<HTMLInputElement, IInputPasswordProps>(
         ref={ref}
         errorText={'Заполните поле'}
         extraClass='mt-6'
+        data-cy='input-password'
       />
     );
   }

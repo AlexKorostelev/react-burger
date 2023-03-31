@@ -36,6 +36,7 @@ const Ingredient: FC<IIngredientProps> = ({ id }) => {
         className={styles.wrapper}
         onClick={handlerIngredientClick}
         ref={dragRef}
+        data-cy={`ingredientItem-${id}`}
       >
         <div className='ml-4 mr-4'>
           <img src={image} alt={name} />

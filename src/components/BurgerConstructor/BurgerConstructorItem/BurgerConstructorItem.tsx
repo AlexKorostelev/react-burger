@@ -106,7 +106,7 @@ const BurgerConstructorItem: FC<IBurgerConstructorItemProps> = ({
                   <LockIcon type='secondary' />
                 ) : (
                   <div
-                    data-cy='remove_ingredient_icon'
+                    data-cy='remove-ingredient-icon'
                     style={{ display: 'flex' }}
                   >
                     <DeleteIcon type='primary' onClick={handlerDeleteItem} />

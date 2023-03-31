@@ -18,7 +18,7 @@ const ModalHeader: FC<IModalHeaderProps> = ({ header, onClose }) => {
         <div
           className={styles.icon_container}
           onClick={onClose}
-          data-cy='modal_close_icon'
+          data-cy='modal-close-icon'
         >
           <CloseIcon type='primary' />
         </div>
